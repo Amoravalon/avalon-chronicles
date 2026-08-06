@@ -562,7 +562,7 @@
         renderPostsUI(filtered);
     }
 
-    // 尋路者注入：聲波雙塔編排與 Contextual Bridge 引力漏斗
+    // 尋路者注入：聲波雙塔編排與【絕對白名單】防禦矩陣
     function renderEpisodes(episodes) {
         const box = document.getElementById('episodes-list');
         box.innerHTML = '';
@@ -588,8 +588,8 @@
             const epTitle = ep.Title || ep.title || '';
             const epSummary = ep.Summary || ep.summary || '';
             const epDate = ep.Date || ep.date || '';
-            const epEmbedType = ep.Embed_Type || ep.embed_type || '';
-            const epMediaUrl = ep.Media_Url || ep.media_url || ep.audio_embed_url || '';
+            // 捕獲所有可能的 URL 變體
+            const epMediaUrl = ep.Media_Url || ep.media_url || ep.audio_embed_url || ep.url || '';
 
             // 守門人印記 (置頂標示) 與 橋樑動線
             let badgeHTML = '';
@@ -616,25 +616,27 @@
                 </div>`;
             }
 
-            // 尋路者管線組裝：動態捕捉資料庫的多維度屬性，防禦靜默斷路
+            // 尋路者防禦矩陣：【絕對白名單蓋頭鎮壓】
             let embedHTML = '';
 
-            // 啟動緩解矩陣：只有在捕捉到真實能量源，且不為字串 'undefined' 時才進行渲染
-            if (epMediaUrl && epMediaUrl !== 'undefined' && epMediaUrl.trim() !== '') {
-                let isYouTube = epEmbedType.toLowerCase() === 'youtube' || epMediaUrl.includes('youtube.com') || epMediaUrl.includes('youtu.be');
-                let finalUrl = epMediaUrl;
+            // 僅在 URL 為有效字串時啟動解析
+            if (typeof epMediaUrl === 'string' && epMediaUrl.trim() !== '' && epMediaUrl !== 'undefined') {
+                const urlStr = epMediaUrl.trim().toLowerCase();
                 
-                if (isYouTube) {
-                    // Regex 文本解構：精準萃取 YouTube ID，並強制相變為 Embed 標準態
+                // 實體化路徑 A：YouTube 頻率
+                if (urlStr.includes('youtube.com') || urlStr.includes('youtu.be')) {
+                    // 精準提取 11 碼 ID
                     const ytRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
                     const match = epMediaUrl.match(ytRegex);
                     if (match && match[1]) {
-                        finalUrl = `https://www.youtube.com/embed/${match[1]}`;
+                        embedHTML = `<div class="aspect-video w-full rounded-xl overflow-hidden border border-white/10 mt-2 relative z-10"><iframe src="https://www.youtube.com/embed/${match[1]}" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>`;
                     }
-                    embedHTML = `<div class="aspect-video w-full rounded-xl overflow-hidden border border-white/10 mt-2 relative z-10"><iframe src="${escapeHTML(finalUrl)}" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>`;
-                } else {
-                    embedHTML = `<div class="w-full rounded-xl overflow-hidden border border-white/10 mt-2 relative z-10"><iframe src="${escapeHTML(finalUrl)}" class="w-full h-[500px] sm:h-[520px]" frameborder="0" scrolling="no" allow="autoplay"></iframe></div>`;
+                } 
+                // 實體化路徑 B：SoundOn 頻率
+                else if (urlStr.includes('soundon.fm')) {
+                    embedHTML = `<div class="w-full rounded-xl overflow-hidden border border-white/10 mt-2 relative z-10"><iframe src="${escapeHTML(epMediaUrl)}" class="w-full h-[500px] sm:h-[520px]" frameborder="0" scrolling="no" allow="autoplay"></iframe></div>`;
                 }
+                // 任何非白名單的 URL (包含首頁、GAS 網址等)，一律靜默拋棄，不生成 iframe
             }
             
             item.innerHTML = `${badgeHTML}<div class="flex justify-between items-center pr-12"><span class="text-xs font-bold ${epCode === 'Vol.00' ? 'text-emerald-400' : 'text-orange-400'} font-mono">${escapeHTML(epCode)}</span><span class="text-[10px] text-slate-500 font-mono">${escapeHTML(epDate)}</span></div><h4 class="text-sm md:text-base font-bold text-white serif mt-1">${escapeHTML(epTitle)}</h4><p class="text-[11px] md:text-xs text-slate-400 leading-relaxed font-light mt-1">${escapeHTML(epSummary)}</p>${embedHTML}${bridgeHTML}`;
