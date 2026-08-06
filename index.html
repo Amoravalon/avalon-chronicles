@@ -54,7 +54,7 @@
       <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-white serif tracking-widest mb-2 leading-tight">阿瓦隆觀測日誌</h1>
       <p class="text-slate-400 text-[10px] md:text-xs tracking-[0.2em] uppercase font-bold text-orange-400/80 px-2">I AM THE SOUL'S TRUEST WILDERNESS.</p>
       
-      <!-- 尋路者注入：The Gatekeeper 新手靈魂校準橫幅 -->
+      <!-- 新手靈魂校準橫幅 -->
       <div class="bg-black/60 border border-emerald-500/30 rounded-2xl p-4 max-w-2xl mx-auto mt-6 mb-2 flex items-start sm:items-center gap-3 shadow-[0_0_20px_rgba(16,185,129,0.1)] fade-in">
         <i class="fa-solid fa-compass text-emerald-500 text-lg sm:text-xl mt-0.5 sm:mt-0 animate-pulse"></i>
         <p class="text-[11px] sm:text-xs text-slate-300 leading-relaxed font-light text-left">
@@ -73,6 +73,42 @@
 
     <!-- 2. 主視圖 A：觀測日誌 -->
     <div id="view-chronicles" class="block space-y-8 md:space-y-12 fade-in">
+      
+      <!-- 🌟 區塊一：當期旗艦展演 (Featured Episode) -->
+      <section class="relative bg-black border border-orange-500/30 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-[0_0_40px_rgba(234,88,12,0.15)] group mt-2 mb-12">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1/2 bg-[radial-gradient(ellipse_at_top,rgba(251,146,60,0.15)_0%,transparent_70%)] pointer-events-none"></div>
+        <div class="p-6 sm:p-8 md:p-12 relative z-10 flex flex-col items-center text-center space-y-6 md:space-y-8">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+            </span>
+            <span class="text-[10px] text-orange-400 font-bold tracking-widest uppercase">當期核心展演</span>
+          </div>
+          <div class="space-y-3 max-w-2xl mx-auto">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-black text-white serif leading-snug tracking-wide">
+              《阿瓦隆之夜》小紅帽篇 <br class="hidden sm:block">
+              <span class="text-xl sm:text-2xl md:text-3xl text-orange-400 mt-2 block">野狼從來不曾離開外婆的床</span>
+            </h2>
+            <p class="text-xs md:text-sm text-slate-400 leading-relaxed font-light pt-2">
+              在愛裡，你擁抱的是眼前真實的人，還是你投射出的幻象？結合榮格陰影與薩提爾冰山，直面親密關係中最幽暗的渴望。
+            </p>
+          </div>
+          <div class="w-full max-w-4xl aspect-video rounded-xl overflow-hidden border border-white/10 shadow-2xl bg-[#050505] relative z-20">
+            <iframe src="https://www.youtube.com/embed/Ws3Fdxb-g5Q?enablejsapi=1&rel=0" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="pt-4 flex flex-col sm:flex-row gap-4 justify-center w-full max-w-md relative z-20">
+            <button onclick="openPreorderModal('掛畫')" class="btn-magic w-full text-white text-xs font-black h-12 rounded-xl tracking-[0.1em] uppercase shadow-[0_0_15px_rgba(234,88,12,0.3)] flex items-center justify-center cursor-pointer">
+              <i class="fa-solid fa-gem mr-1.5"></i> 典藏實體果實
+            </button>
+            <button onclick="switchDimension('support')" class="w-full bg-black border border-orange-500/50 hover:bg-orange-500/10 text-orange-400 text-xs font-black h-12 rounded-xl tracking-[0.1em] uppercase transition-colors flex items-center justify-center cursor-pointer">
+              <i class="fa-solid fa-fire mr-1.5"></i> 添柴
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 🌟 區塊二：名單蒐集 (Lead Magnet) -->
       <section class="glass-panel p-6 sm:p-8 md:p-12 rounded-[2rem] md:rounded-[2.5rem] border border-orange-500/30 relative overflow-hidden text-center shadow-[0_0_30px_rgba(234,88,12,0.1)]">
         <div class="max-w-2xl mx-auto space-y-4 md:space-y-6">
           <span class="text-orange-400 text-[10px] md:text-xs font-black tracking-[0.25em] uppercase block"><i class="fa-solid fa-scroll mr-1.5"></i> 首波靈魂對照地圖</span>
@@ -86,6 +122,7 @@
         </div>
       </section>
 
+      <!-- 🌟 區塊三：預售區 (Preorder Store) -->
       <section id="gallery-store" class="glass-panel p-6 sm:p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-orange-500/20 relative overflow-hidden">
         <div class="flex flex-col lg:flex-row gap-6 md:gap-8 items-center">
           <div class="w-full lg:w-1/2 aspect-square max-w-[380px] lg:max-w-none rounded-2xl overflow-hidden border border-white/10 relative group bg-black/60 shrink-0 mx-auto">
@@ -128,8 +165,15 @@
         </div>
       </section>
 
-      <section class="space-y-6 md:space-y-8">
+      <!-- 🌟 區塊四：觀測日誌總覽 (Archive Section) -->
+      <section class="space-y-6 md:space-y-8 relative mt-16 border-t border-white/5 pt-10">
+        <div class="text-center pb-4 relative">
+           <h3 class="text-lg md:text-xl font-black text-slate-300 serif tracking-widest uppercase">觀測日誌總覽</h3>
+           <p class="text-[10px] text-slate-500 font-mono mt-1 tracking-widest">THE ARCHIVES</p>
+        </div>
+
         <div id="loading" class="text-center text-orange-500/70 animate-pulse text-xs tracking-widest uppercase font-bold py-6"><i class="fa-solid fa-satellite-dish mr-2"></i> 觀測塔信號對接中...</div>
+        
         <div class="sticky top-0 z-30 bg-[#050505]/90 backdrop-blur-md flex flex-row justify-between items-center border-b border-white/10 py-3 -mx-4 px-4 sm:mx-0 sm:px-0">
             <div class="flex gap-2.5 overflow-x-auto custom-scrollbar pb-1" id="category-filters">
                 <button onclick="filterPosts('all')" class="text-orange-500 font-bold text-xs uppercase tracking-widest whitespace-nowrap cursor-pointer px-1 py-0.5">全部觀測</button>
@@ -610,7 +654,7 @@
                 <div class="pt-3 mt-3 border-t border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 bg-orange-900/10 -mx-4 -mb-4 px-4 py-3 sm:-mx-5 sm:-mb-5 sm:px-5">
                     <span class="text-[10px] text-slate-400">靈魂被這段頻率觸動？</span>
                     <div class="flex gap-4">
-                        <button onclick="switchDimension('store')" class="text-orange-400 hover:text-orange-300 text-[10px] font-bold uppercase tracking-widest transition-colors"><i class="fa-solid fa-gem mr-1"></i> 典藏《小紅帽》實體果實</button>
+                        <button onclick="switchDimension('store')" class="text-orange-400 hover:text-orange-300 text-[10px] font-bold uppercase tracking-widest transition-colors"><i class="fa-solid fa-gem mr-1"></i> 典藏實體果實</button>
                         <button onclick="switchDimension('support')" class="text-orange-500 hover:text-orange-400 text-[10px] font-bold uppercase tracking-widest transition-colors"><i class="fa-solid fa-fire mr-1"></i> 添柴</button>
                     </div>
                 </div>`;
