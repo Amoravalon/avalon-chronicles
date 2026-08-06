@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>阿瓦隆觀測日誌 | Avalon Chronicles</title>
+  
+  <meta property="og:title" content="阿瓦隆觀測日誌 ｜ I AM THE SOUL'S TRUEST WILDERNESS.">
+  <meta property="og:description" content="「在愛裡，你擁抱的是眼前真實的人，還是你投射出的幻象？」免費領取《小紅帽：親密關係中的靈魂七重照見》深度文本 (PDF)。">
+  <meta property="og:image" content="小紅帽2026_0626.jpg">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔥</text></svg>">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+
+  <style>
+    :root { --color-deep: #050505; }
+    body { font-family: 'Noto Sans TC', sans-serif; background-color: var(--color-deep); color: #e2e8f0; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+    .serif { font-family: 'Playfair Display', serif; }
+    
+    .star-bg { background-image: radial-gradient(white, rgba(255,255,255,.1) 1px, transparent 2px); background-size: 300px 300px; animation: starMove 150s linear infinite; }
+    @keyframes starMove { from { background-position: 0 0; } to { background-position: 300px 300px; } }
+    
+    .glass-panel { background: rgba(17, 24, 39, 0.6); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5); }
+    
+    .btn-magic { background: linear-gradient(135deg, #fb923c 0%, #ea580c 100%); transition: all 0.3s ease; }
+    .btn-magic:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(234, 88, 12, 0.4); }
+    .btn-active:active { transform: scale(0.97); }
+    
+    .custom-scrollbar::-webkit-scrollbar { width: 4px; height: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); border-radius: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(251, 146, 60, 0.3); border-radius: 4px; }
+
+    .fade-in { animation: fadeIn 0.6s ease-out forwards; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body class="star-bg relative min-h-screen pb-12 antialiased">
+
+  <div class="fixed top-0 left-1/2 -translate-x-1/2 w-full h-[400px] md:h-[600px] bg-[radial-gradient(circle,rgba(251,146,60,0.08)_0%,rgba(5,5,5,0)_70%)] pointer-events-none z-0"></div>
+
+  <div class="container mx-auto px-4 md:px-6 py-6 md:py-12 relative z-10 max-w-6xl">
+    
+    <!-- 1. Header 聖域導覽列 -->
+    <header class="text-center mb-8 md:mb-12 border-b border-white/5 pb-6 md:pb-8">
+      <div class="inline-flex items-center gap-2.5 mb-3 md:mb-4">
+        <div class="w-10 h-10 md:w-12 md:h-12 bg-orange-500 flex items-center justify-center rounded-xl rotate-45 shadow-[0_0_20px_rgba(251,146,60,0.3)]">
+          <i class="fa-solid fa-fire text-black -rotate-45 text-lg md:text-xl"></i>
+        </div>
+        <span class="text-2xl md:text-3xl font-black tracking-[0.25em] text-white serif uppercase">Avalon</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-white serif tracking-widest mb-2 leading-tight">阿瓦隆觀測日誌</h1>
+      <p class="text-slate-400 text-[10px] md:text-xs tracking-[0.2em] uppercase font-bold text-orange-400/80 px-2">I AM THE SOUL'S TRUEST WILDERNESS.</p>
+      
+      <div class="flex justify-start md:justify-center gap-4 md:gap-8 mt-6 md:mt-8 overflow-x-auto custom-scrollbar pb-2 px-1 -mx-4 px-5 md:mx-0">
+          <button onclick="switchDimension('chronicles')" id="tab-chronicles" class="text-orange-500 font-bold tracking-widest uppercase pb-2 border-b-2 border-orange-500 transition-all text-xs md:text-base whitespace-nowrap shrink-0 cursor-pointer">觀測日誌</button>
+          <button onclick="switchDimension('episodes')" id="tab-episodes" class="text-slate-500 hover:text-orange-400 font-bold tracking-widest uppercase pb-2 border-b-2 border-transparent transition-all text-xs md:text-base whitespace-nowrap shrink-0 flex items-center gap-1 cursor-pointer"><i class="fa-solid fa-podcast text-[10px] md:text-xs text-orange-400"></i> 阿瓦隆聲波</button>
+          <button onclick="switchDimension('store')" id="tab-store" class="text-slate-500 hover:text-orange-400 font-bold tracking-widest uppercase pb-2 border-b-2 border-transparent transition-all text-xs md:text-base whitespace-nowrap shrink-0 flex items-center gap-1 cursor-pointer"><i class="fa-solid fa-gem text-[10px] md:text-xs text-orange-400"></i> 典藏果實</button>
+          <button onclick="switchDimension('support')" id="tab-support" class="text-slate-500 hover:text-orange-400 font-bold tracking-widest uppercase pb-2 border-b-2 border-transparent transition-all text-xs md:text-base whitespace-nowrap shrink-0 flex items-center gap-1 cursor-pointer"><i class="fa-solid fa-fire-flame-curved text-[10px] md:text-xs text-orange-400"></i> 為阿瓦隆添柴</button>
+          <button onclick="switchDimension('ethos')" id="tab-ethos" class="text-slate-500 hover:text-orange-400 font-bold tracking-widest uppercase pb-2 border-b-2 border-transparent transition-all text-xs md:text-base whitespace-nowrap shrink-0 flex items-center gap-1 cursor-pointer">阿瓦隆宣告</button>
+      </div>
+    </header>
+
+    <!-- 2. 主視圖 A：觀測日誌 -->
+    <div id="view-chronicles" class="block space-y-8 md:space-y-12 fade-in">
+      <section class="glass-panel p-6 sm:p-8 md:p-12 rounded-[2rem] md:rounded-[2.5rem] border border-orange-500/30 relative overflow-hidden text-center shadow-[0_0_30px_rgba(234,88,12,0.1)]">
+        <div class="max-w-2xl mx-auto space-y-4 md:space-y-6">
+          <span class="text-orange-400 text-[10px] md:text-xs font-black tracking-[0.25em] uppercase block"><i class="fa-solid fa-scroll mr-1.5"></i> 首波靈魂對照地圖</span>
+          <h2 class="text-xl sm:text-2xl md:text-3xl font-black text-white serif leading-relaxed">「在愛裡，你擁抱的是眼前真實的人，<br class="hidden sm:inline">還是你投射出的幻象？」</h2>
+          <p class="text-slate-400 text-xs md:text-sm leading-relaxed font-light px-1">留下 Email 座標，立刻免費領取完整版 <strong class="text-orange-300 font-bold">《小紅帽：親密關係中的靈魂七重照見》深度對照文本 (PDF)</strong>，並開始接收雙週五深夜寄達的《阿瓦隆黑森林傳書》。</p>
+          <div class="flex flex-col sm:flex-row gap-2.5 max-w-md mx-auto pt-2">
+            <input type="text" id="lead-name" placeholder="您的稱呼" class="w-full sm:w-1/3 bg-black/80 border border-white/10 focus:border-orange-500 rounded-xl px-4 py-3 text-xs text-white text-center outline-none">
+            <input type="email" id="lead-email" placeholder="接收 PDF 文本的 Email" class="w-full sm:w-2/3 bg-black/80 border border-white/10 focus:border-orange-500 rounded-xl px-4 py-3 text-xs text-white text-center outline-none">
+          </div>
+          <button onclick="claimFreeText()" id="lead-btn" class="btn-magic w-full max-w-md mx-auto text-white text-xs font-black h-12 rounded-xl tracking-[0.15em] uppercase cursor-pointer flex items-center justify-center">免費領取完整七重照見文本 (PDF)</button>
+        </div>
+      </section>
+
+      <section id="gallery-store" class="glass-panel p-6 sm:p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-orange-500/20 relative overflow-hidden">
+        <div class="flex flex-col lg:flex-row gap-6 md:gap-8 items-center">
+          <div class="w-full lg:w-1/2 aspect-square max-w-[380px] lg:max-w-none rounded-2xl overflow-hidden border border-white/10 relative group bg-black/60 shrink-0 mx-auto">
+            <img src="小紅帽2026_0626.jpg" alt="小紅帽2026" class="w-full h-full object-cover rounded-2xl transition-transform duration-700 group-hover:scale-105">
+            <span class="absolute top-3 left-3 md:top-4 md:left-4 bg-black/80 text-orange-400 text-[9px] md:text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-widest border border-orange-500/30 z-10 shadow-md">Vol.01 首波降生預購（8/08 - 8/22）</span>
+          </div>
+          <div class="w-full lg:w-1/2 space-y-4 md:space-y-5">
+            <div>
+              <h3 class="text-xl sm:text-2xl font-black text-white serif mb-1 leading-snug">《小紅帽 2026：親密關係中的投射與狼眼》</h3>
+              <p class="text-xs text-slate-400 leading-relaxed font-light">看見內在野獸，不再向世俗屈服。黑白灰階與高反差純紅/琥珀金凝視，具備深沉的靈魂重量。</p>
+            </div>
+            <div class="space-y-2.5 md:space-y-3">
+              <div class="p-3.5 md:p-4 bg-black/60 rounded-2xl border border-white/10 flex justify-between items-center">
+                <div class="space-y-0.5">
+                  <div class="flex items-center gap-1.5 flex-wrap"><span class="text-xs font-bold text-white">【普普限定海報】裸張</span><span class="text-[9px] bg-orange-500/20 text-orange-400 px-2 py-0.5 rounded-full font-bold">14天預購優惠</span></div>
+                  <p class="text-[10px] text-slate-300"><i class="fa-solid fa-ruler-combined mr-1 text-orange-400"></i>尺寸：40 × 40 cm (黃金畫幅)</p>
+                  <p class="text-[9.5px] md:text-[10px] text-slate-500 leading-tight">300g無酸紙 ｜ 附數位簽名證明卡</p>
+                </div>
+                <div class="text-right shrink-0 ml-2"><span class="text-slate-500 line-through text-[9px] block">NT$ 1,680</span><p class="text-orange-400 font-bold text-sm md:text-base">NT$ 1,280</p></div>
+              </div>
+              <div class="p-3.5 md:p-4 bg-black/80 rounded-2xl border border-orange-500/50 flex justify-between items-center shadow-[0_0_20px_rgba(234,88,12,0.15)]">
+                <div class="space-y-0.5">
+                  <div class="flex items-center gap-1.5 flex-wrap"><span class="text-xs font-bold text-orange-300">【畫廊級典藏掛畫】</span><span class="text-[9px] bg-red-900/60 text-red-300 px-2 py-0.5 rounded-full font-bold">全網限量 20 幅</span></div>
+                  <p class="text-[10px] text-slate-300"><i class="fa-solid fa-ruler-combined mr-1 text-orange-400"></i>尺寸：40 × 40 cm (客製實木懸浮暗框)</p>
+                  <p class="text-[9.5px] md:text-[10px] text-slate-400 leading-tight">微噴油畫布 ｜ 亞瑟親筆簽名 ＋ 專屬編號證書卡</p>
+                </div>
+                <div class="text-right shrink-0 ml-2"><span class="text-slate-500 line-through text-[9px] block">NT$ 5,800</span><p class="text-orange-400 font-black text-base md:text-lg">NT$ 3,600</p></div>
+              </div>
+            </div>
+            <div class="bg-black/50 p-3.5 rounded-2xl border border-white/10 space-y-1.5 text-[11px] text-slate-400">
+              <span class="text-orange-300 font-bold block text-[11px]"><i class="fa-solid fa-filter mr-1"></i> 關於《內在對話手冊》坦蕩宣告：</span>
+              <p class="leading-relaxed text-[10px] md:text-[10.5px] font-light">「習慣自我覺察的人無需購買。此手冊專為『不習慣與自己對話』的旅人設計。」</p>
+              <div class="pt-1.5 border-t border-white/5 flex justify-between items-center">
+                <span class="text-slate-300 text-[10px]">需要架構引導？《內在對話手冊 (PDF)》</span>
+                <button onclick="buyInteractiveManual()" class="text-orange-400 hover:underline font-bold text-xs cursor-pointer">便當價 NT$ 90 點此購買</button>
+              </div>
+            </div>
+            <button onclick="openPreorderModal('掛畫')" class="btn-magic w-full text-white text-xs font-black h-12 rounded-xl tracking-[0.15em] uppercase cursor-pointer flex items-center justify-center">開啟《小紅帽 2026》典藏預購通道</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="space-y-6 md:space-y-8">
+        <div id="loading" class="text-center text-orange-500/70 animate-pulse text-xs tracking-widest uppercase font-bold py-6"><i class="fa-solid fa-satellite-dish mr-2"></i> 觀測塔信號對接中...</div>
+        <div class="sticky top-0 z-30 bg-[#050505]/90 backdrop-blur-md flex flex-row justify-between items-center border-b border-white/10 py-3 -mx-4 px-4 sm:mx-0 sm:px-0">
+            <div class="flex gap-2.5 overflow-x-auto custom-scrollbar pb-1" id="category-filters">
+                <button onclick="filterPosts('all')" class="text-orange-500 font-bold text-xs uppercase tracking-widest whitespace-nowrap cursor-pointer px-1 py-0.5">全部觀測</button>
+                <button onclick="filterPosts('系統日誌')" class="text-slate-500 hover:text-orange-400 font-bold text-xs uppercase tracking-widest transition-colors whitespace-nowrap cursor-pointer px-1 py-0.5">系統日誌</button>
+                <button onclick="filterPosts('星軌異象')" class="text-slate-500 hover:text-orange-400 font-bold text-xs uppercase tracking-widest transition-colors whitespace-nowrap cursor-pointer px-1 py-0.5">星軌異象</button>
+            </div>
+            <div class="text-[10px] text-slate-400 font-mono bg-white/5 px-2.5 py-1 rounded-full"><i class="fa-solid fa-eye text-orange-500/70 mr-1"></i> 觀看人次：<span id="global-views">0</span></div>
+        </div>
+        <div id="post-list" class="space-y-6 md:space-y-10"></div>
+      </section>
+    </div>
+
+    <!-- 3. 主視圖 B：阿瓦隆聲波 -->
+    <div id="view-episodes" class="hidden w-full max-w-5xl mx-auto flex-col gap-6 md:gap-8 fade-in relative">
+      <div class="glass-panel p-6 sm:p-8 md:p-12 rounded-[2rem] md:rounded-[2.5rem] border border-orange-500/30 space-y-6 shadow-2xl">
+        <div class="text-center space-y-2 border-b border-white/10 pb-5">
+          <h2 class="text-2xl sm:text-3xl font-black text-white serif tracking-widest flex items-center justify-center"><i class="fa-solid fa-podcast text-orange-500 mr-2.5 text-xl sm:text-2xl"></i> 阿瓦隆聲波頻道：節目總庫</h2>
+          <p class="text-xs text-slate-400 max-w-xl mx-auto leading-relaxed font-light">記錄著《阿瓦隆之夜》與所有解剖靈魂陰影的聲波/影像頻率：</p>
+        </div>
+        <div id="episodes-list" class="space-y-4 md:space-y-6 max-h-[70vh] overflow-y-auto custom-scrollbar pr-1">
+          <div class="text-center text-slate-500 py-10 text-xs">聲波與影像頻率對接中...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. 主視圖 C：典藏果實 -->
+    <div id="view-store" class="hidden w-full max-w-4xl mx-auto flex-col gap-6 md:gap-8 fade-in relative">
+      <div class="glass-panel p-6 sm:p-8 md:p-12 rounded-[2rem] md:rounded-[2.5rem] border border-orange-500/30 text-center space-y-6">
+        <h2 class="text-2xl sm:text-3xl font-black text-white serif tracking-widest">阿瓦隆典藏果實專區</h2>
+        <p class="text-xs text-slate-400 max-w-lg mx-auto leading-relaxed font-light">每一個實體物件皆經過黑森林儀式淬鍊，承載獨一無二的生命光度。</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2 text-left">
+          <div class="bg-black/60 border border-orange-500/40 p-5 rounded-3xl space-y-3.5">
+            <div class="aspect-square rounded-2xl bg-slate-900 border border-white/5 overflow-hidden"><img src="小紅帽2026_0626.jpg" alt="小紅帽精裝掛畫" class="w-full h-full object-cover"></div>
+            <h4 class="text-base font-bold text-orange-300 serif">【畫廊級典藏掛畫】《小紅帽 2026》</h4>
+            <p class="text-xs text-slate-400 font-light">全網限量 20 幅 ｜ 40 × 40 cm 懸浮實木暗框 ｜ 附亞瑟親筆簽名＋專屬編號證書卡。</p>
+            <div class="flex justify-between items-center pt-1"><span class="text-orange-400 font-black text-base">NT$ 3,600</span><button onclick="openPreorderModal('掛畫')" class="btn-magic px-4 py-2.5 rounded-xl text-xs text-white font-bold uppercase cursor-pointer">預購掛畫</button></div>
+          </div>
+          <div class="bg-black/60 border border-white/10 p-5 rounded-3xl space-y-3.5">
+            <div class="aspect-square rounded-2xl bg-slate-900 border border-white/5 overflow-hidden"><img src="小紅帽2026_0626.jpg" alt="小紅帽微噴海報" class="w-full h-full object-cover"></div>
+            <h4 class="text-base font-bold text-white serif">【普普限定海報】《小紅帽 2026》</h4>
+            <p class="text-xs text-slate-400 font-light">14 天限時預購裸張 ｜ 40 × 40 cm 300g高磅數無酸純棉美術紙 ｜ 附數位簽名證明卡。</p>
+            <div class="flex justify-between items-center pt-1"><span class="text-orange-400 font-bold text-base">NT$ 1,280</span><button onclick="openPreorderModal('海報')" class="btn-magic px-4 py-2.5 rounded-xl text-xs text-white font-bold uppercase cursor-pointer">預購海報</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. 主視圖 D：為阿瓦隆添柴 -->
+    <div id="view-support" class="hidden w-full max-w-4xl mx-auto flex-col gap-6 md:gap-8 fade-in z-10 relative">
+      <div class="glass-panel p-6 sm:p-8 md:p-12 rounded-[2rem] md:rounded-[2.5rem] border border-orange-500/30 space-y-6 md:space-y-8">
+        <div class="text-center space-y-2 border-b border-white/10 pb-5">
+          <h2 class="text-2xl sm:text-3xl font-black text-white serif tracking-widest flex items-center justify-center">
+            <i class="fa-solid fa-fire-flame-curved text-orange-500 mr-2.5"></i> 為阿瓦隆的營火增添柴火
+          </h2>
+          <p class="text-xs text-slate-400 max-w-xl mx-auto leading-relaxed font-light">
+            阿瓦隆是一座不講安撫童話的聖域。為了讓這座營火在黑森林深處永續燃燒，我們開啟了自由添柴的通道。如果你覺得這片領土劃定具備生命價值，歡迎為阿瓦隆遞上柴火：
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+          <div class="bg-black/60 p-5 rounded-3xl border border-white/10 space-y-3">
+            <div class="flex items-center gap-2.5 text-orange-400">
+              <i class="fa-solid fa-hand-holding-heart text-lg"></i>
+              <h3 class="text-sm md:text-base font-bold text-white">【微光自由贊助】</h3>
+            </div>
+            <p class="text-xs text-slate-400 leading-relaxed font-light">自由金額單次贊助，直接支持系統運作與節目產出的每一度能量。</p>
+            <button onclick="openPreorderModal('自由金額贊助')" class="btn-magic w-full text-white text-xs font-black h-10 rounded-xl uppercase tracking-widest cursor-pointer">自由金額贊助</button>
+          </div>
+
+          <div class="bg-black/60 p-5 rounded-3xl border border-white/10 space-y-3">
+            <div class="flex items-center gap-2.5 text-orange-400">
+              <i class="fa-solid fa-gem text-lg"></i>
+              <h3 class="text-sm md:text-base font-bold text-white">【果實實體典藏】</h3>
+            </div>
+            <p class="text-xs text-slate-400 leading-relaxed font-light">收藏 40×40cm 普普限定海報或畫廊級限量掛畫，將靈魂圖騰釘實於你的空間。</p>
+            <button onclick="switchDimension('store')" class="bg-white/5 hover:bg-white/10 text-orange-300 border border-orange-500/30 w-full text-xs font-bold h-10 rounded-xl uppercase tracking-widest transition-colors cursor-pointer">前往果實展售區</button>
+          </div>
+
+          <div class="bg-black/40 p-5 rounded-3xl border border-white/5 space-y-3 opacity-70">
+            <div class="flex items-center gap-2.5 text-slate-500">
+              <i class="fa-solid fa-crown text-lg"></i>
+              <h3 class="text-sm md:text-base font-bold text-slate-300">【領地深度訂閱】</h3>
+            </div>
+            <p class="text-xs text-slate-500 leading-relaxed font-light">成為阿瓦隆的長期居民，解鎖專屬 Q&A 答疑與幕後創作紀實。</p>
+            <div class="bg-black/80 text-slate-600 text-center text-xs h-10 flex items-center justify-center rounded-xl font-bold uppercase tracking-widest border border-white/5">即將開放</div>
+          </div>
+
+          <div class="bg-black/60 p-5 rounded-3xl border border-white/10 space-y-3">
+            <div class="flex items-center gap-2.5 text-emerald-400">
+              <i class="fa-solid fa-handshake text-lg"></i>
+              <h3 class="text-sm md:text-base font-bold text-white">【品牌與領主合作】</h3>
+            </div>
+            <p class="text-xs text-slate-400 leading-relaxed font-light">若你的品牌或創作具備相同的靈魂純度，歡迎遞交商業合作邀約。</p>
+            <a href="mailto:amor.avalon427@gmail.com" class="bg-emerald-950/60 hover:bg-emerald-900/80 text-emerald-300 border border-emerald-500/40 text-center text-xs font-bold h-10 flex items-center justify-center rounded-xl uppercase tracking-widest transition-colors">amor.avalon427@gmail.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. 主視圖 E：阿瓦隆宣告 -->
+    <div id="view-ethos" class="hidden w-full max-w-5xl mx-auto flex-col gap-6 md:gap-8 fade-in z-10 relative">
+        <div class="glass-panel p-6 sm:p-8 md:p-12 rounded-[2rem] md:rounded-[2.5rem] relative overflow-hidden group border border-emerald-500/20 shadow-[0_0_40px_rgba(16,185,129,0.05)]">
+            <div class="text-center mb-8 border-b border-white/10 pb-6 relative z-10">
+                <h2 class="text-2xl sm:text-3xl font-black text-emerald-400 serif tracking-widest mb-2 flex items-center justify-center">
+                    <i class="fa-solid fa-feather-pointed mr-2.5"></i> 阿瓦隆宣告
+                </h2>
+                <p class="text-slate-500 text-[10px] md:text-xs tracking-widest uppercase mt-1">The Avalon Ethos & Declarations</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-10 relative z-10">
+                <div class="md:col-span-3 w-full bg-black/40 border border-white/5 rounded-3xl p-6 md:p-8 space-y-4 md:space-y-6">
+                    <span class="text-slate-400 text-xs font-bold uppercase tracking-widest block mb-4 border-b border-white/10 pb-3 flex items-center">
+                        <i class="fa-solid fa-sun text-orange-500 mr-2"></i> 晨星十訣：領地宣告
+                    </span>
+                    <div class="grid grid-cols-1 gap-5 max-h-[50vh] overflow-y-auto custom-scrollbar pr-2">
+                        <div class="group"><h4 class="text-emerald-400 text-xs md:text-sm font-bold mb-1">1. 奪回反應的間隙</h4><p class="text-slate-400 text-xs leading-relaxed font-light">不再被外界的刺激牽著走。遇到情緒波動時，強迫自己深呼吸暫停 3 秒，由「我」來決定要給出什麼反應。</p></div>
+                        <div class="group"><h4 class="text-emerald-400 text-xs md:text-sm font-bold mb-1">2. 拒絕抱怨的消耗</h4><p class="text-slate-400 text-xs leading-relaxed font-light">放棄等待別人的拯救。把「為什麼是我？」的心態，切換成「我現在能做什麼？」的破局行動。</p></div>
+                        <div class="group"><h4 class="text-emerald-400 text-xs md:text-sm font-bold mb-1">3. 每日清晨的物理重啟</h4><p class="text-slate-400 text-xs leading-relaxed font-light">昨天的失誤與疲憊皆已結算。今早睜開眼的瞬間，就是一個沒有負債的全新帳號。</p></div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2 space-y-4">
+                    <div class="w-full bg-slate-900/40 border border-slate-700/50 rounded-3xl p-6">
+                        <span class="text-slate-400 text-xs font-bold uppercase tracking-widest block mb-4 border-b border-slate-700 pb-3 flex items-center">
+                            <i class="fa-solid fa-moon text-blue-400 mr-2"></i> 每日代謝指引
+                        </span>
+                        <div class="space-y-4">
+                            <div>
+                                <span class="text-xs font-bold text-blue-400 uppercase tracking-widest block mb-1"><i class="fa-solid fa-droplet mr-1"></i> 穩住深海 (睡前感恩)</span>
+                                <p class="text-xs text-slate-400 leading-relaxed italic border-l-2 border-blue-500/30 pl-2.5 font-light">今天在我的領地中，最值得感激的溫度是什麼？</p>
+                            </div>
+                            <div>
+                                <span class="text-xs font-bold text-orange-400 uppercase tracking-widest block mb-1"><i class="fa-solid fa-fire mr-1"></i> 點燃烈火 (明日定錨)</span>
+                                <p class="text-xs text-slate-400 leading-relaxed italic border-l-2 border-orange-500/30 pl-2.5 font-light">明日唯一重要、引領我破局的「核心行動」是什麼？</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 7. Footer 頁尾 -->
+    <footer class="mt-12 md:mt-20 pt-6 md:pt-8 border-t border-white/5 text-center text-slate-500 text-xs space-y-3">
+      <div class="flex flex-wrap justify-center items-center gap-4 text-slate-400">
+        <div class="flex items-center gap-1.5">
+          <i class="fa-solid fa-envelope text-orange-400/80 text-xs"></i>
+          <span class="font-mono text-[11px]">客服聯繫：</span>
+          <a href="mailto:amor.avalon427@gmail.com" class="text-orange-400 hover:text-orange-300 font-mono tracking-wider transition-colors underline decoration-orange-500/30 underline-offset-4 text-xs">
+            amor.avalon427@gmail.com
+          </a>
+        </div>
+      </div>
+
+      <div class="flex justify-center gap-2 md:gap-4 text-[10px] md:text-[11px] text-slate-500 font-medium flex-wrap px-2">
+        <button onclick="openPolicyModal('privacy')" class="hover:text-orange-400 transition-colors cursor-pointer">隱私權政策</button>
+        <span>｜</span>
+        <button onclick="openPolicyModal('terms')" class="hover:text-orange-400 transition-colors cursor-pointer">服務條款</button>
+        <span>｜</span>
+        <button onclick="openPolicyModal('refund')" class="hover:text-orange-400 transition-colors cursor-pointer">退換貨與預購須知</button>
+      </div>
+
+      <p class="text-[10px] md:text-[11px] text-slate-600 tracking-widest uppercase pt-1 px-2">
+        阿瓦隆計畫工作室 版權所有 © 2026 Avalon Project. All Rights Reserved.
+      </p>
+    </footer>
+
+  </div>
+
+  <!-- Preorder Modal (🚀 動態表單降維：贊助/數位商品隱藏電話地址) -->
+  <div id="preorder-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-3 sm:p-4 fade-in">
+    <div class="glass-panel p-6 sm:p-8 rounded-3xl max-w-md w-full border border-orange-500/30 space-y-4 relative max-h-[90vh] overflow-y-auto custom-scrollbar">
+      <button onclick="closePreorderModal()" class="absolute top-4 right-4 text-slate-500 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
+      
+      <div class="flex items-center gap-3 border-b border-white/10 pb-3">
+        <img src="小紅帽2026_0626.jpg" alt="小紅帽縮圖" class="w-10 h-10 object-cover rounded-xl border border-orange-500/40 shrink-0">
+        <div>
+          <h3 class="text-sm sm:text-base font-black text-white serif tracking-widest flex items-center">
+            <i class="fa-solid fa-gem text-orange-500 mr-1.5 text-xs"></i> 聖域典藏與贊助通道
+          </h3>
+          <p class="text-[9.5px] text-orange-400/80 font-bold tracking-wider">《小紅帽 2026》主權金流</p>
+        </div>
+      </div>
+
+      <p class="text-[11px] text-slate-400 leading-relaxed font-light" id="modal-desc">
+        請填寫基本資訊，確認後將無縫對接綠界金流完成安全付款。
+      </p>
+      
+      <div class="space-y-2.5">
+        <!-- 選擇品項 -->
+        <select id="order-type" onchange="toggleOrderFields()" class="w-full bg-black/80 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none">
+          <option value="掛畫">【畫廊級典藏掛畫】40x40cm 限量20幅 (NT$ 3,600)</option>
+          <option value="海報">【普普限定海報】40x40cm 14天預購 (NT$ 1,280)</option>
+          <option value="私密互動探索小手冊">【心靈工具】《私密互動探索手冊 (PDF)》 (NT$ 90)</option>
+          <option value="微光測試10元">🧪【極小值測試】阿瓦隆金流微光通道 (NT$ 10)</option>
+          <option value="自由金額贊助" selected>🔥【微光自由贊助】自由金額力挺營火</option>
+        </select>
+
+        <!-- 動態自訂贊助金額 (僅在選擇贊助時顯影) -->
+        <div id="custom-amount-box" class="space-y-1">
+          <label class="text-[10px] text-orange-400 font-bold block"><i class="fa-solid fa-coins mr-1"></i> 請輸入贊助金額 (NT$)</label>
+          <input type="number" id="order-custom-amount" value="100" min="10" placeholder="例如：100" class="w-full bg-black/80 border border-orange-500/40 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none font-bold">
+        </div>
+
+        <!-- 稱呼與 Email (永遠必填) -->
+        <input type="text" id="order-name" placeholder="您的稱呼或暱稱" class="w-full bg-black/80 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none">
+        <input type="email" id="order-email" placeholder="聯絡 / 接收收據的 Email" class="w-full bg-black/80 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none">
+
+        <!-- 電話與寄送地址 (僅實體掛畫/海報時動態顯影) -->
+        <div id="physical-shipping-box" class="space-y-2.5 hidden">
+          <input type="tel" id="order-phone" placeholder="聯絡電話 (黑貓配送對接)" class="w-full bg-black/80 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none">
+          <input type="text" id="order-address" placeholder="實體寄送地址" class="w-full bg-black/80 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none">
+        </div>
+      </div>
+      
+      <button onclick="submitPreorder()" id="preorder-btn" class="btn-magic w-full text-white text-xs font-black h-11 rounded-xl tracking-widest uppercase cursor-pointer flex items-center justify-center">
+        對接綠界安全付款
+      </button>
+    </div>
+  </div>
+
+  <!-- Policy Modal -->
+  <div id="policy-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-3 sm:p-4 fade-in">
+    <div class="glass-panel p-6 sm:p-8 rounded-3xl max-w-lg w-full border border-white/10 space-y-4 relative max-h-[80vh] overflow-y-auto custom-scrollbar">
+      <button onclick="closePolicyModal()" class="absolute top-4 right-4 text-slate-500 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
+      <h3 id="policy-title" class="text-base sm:text-lg font-black text-orange-400 serif tracking-widest border-b border-white/10 pb-3"></h3>
+      <div id="policy-content" class="text-xs text-slate-300 leading-relaxed space-y-3 font-light"></div>
+    </div>
+  </div>
+
+  <!-- JavaScript 核心邏輯 -->
+  <script>
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbw3PoHYoPRp7flAEyTMsjg4BaPGOFW8YGff9TXtCdFoWLfasc3YeMKWcMbDUCc5Bi61/exec";
+
+    function escapeHTML(str) {
+        if (!str) return '';
+        return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    }
+
+    // 🚀 動態表單降維切換：贊助/數位商品隱藏實體地址與電話，並開啟自由金額輸入框
+    function toggleOrderFields() {
+        const orderType = document.getElementById('order-type').value;
+        const shippingBox = document.getElementById('physical-shipping-box');
+        const customAmountBox = document.getElementById('custom-amount-box');
+        const modalDesc = document.getElementById('modal-desc');
+
+        if (orderType.includes('贊助')) {
+            shippingBox.classList.add('hidden');
+            customAmountBox.classList.remove('hidden');
+            modalDesc.textContent = '非常感謝你為阿瓦隆添柴！自由贊助不需填寫實體配送地址。';
+        } else if (orderType.includes('掛畫') || orderType.includes('海報')) {
+            shippingBox.classList.remove('hidden');
+            customAmountBox.classList.add('hidden');
+            modalDesc.textContent = '請填寫真實姓名、電話與地址，以便專屬裝裱完工後安排黑貓宅急便寄送。';
+        } else {
+            shippingBox.classList.add('hidden');
+            customAmountBox.classList.add('hidden');
+            modalDesc.textContent = '數位資產將自動寄送至您的 Email，無需填寫實體地址。';
+        }
+    }
+
+    function switchDimension(dimension) {
+        const viewMap = { 
+          chronicles: document.getElementById('view-chronicles'), 
+          episodes: document.getElementById('view-episodes'), 
+          store: document.getElementById('view-store'), 
+          support: document.getElementById('view-support'), 
+          ethos: document.getElementById('view-ethos') 
+        };
+        const tabMap = { 
+          chronicles: document.getElementById('tab-chronicles'), 
+          episodes: document.getElementById('tab-episodes'), 
+          store: document.getElementById('tab-store'), 
+          support: document.getElementById('tab-support'), 
+          ethos: document.getElementById('tab-ethos') 
+        };
+
+        Object.keys(viewMap).forEach(key => { if (viewMap[key]) viewMap[key].classList.add('hidden'); });
+        Object.keys(tabMap).forEach(key => { if (tabMap[key]) tabMap[key].className = "text-slate-500 hover:text-orange-400 font-bold tracking-widest uppercase pb-2 border-b-2 border-transparent transition-all text-xs md:text-base whitespace-nowrap shrink-0 flex items-center gap-1 cursor-pointer"; });
+
+        if (viewMap[dimension]) viewMap[dimension].classList.remove('hidden');
+        if (tabMap[dimension]) tabMap[dimension].className = "text-orange-500 font-bold tracking-widest uppercase pb-2 border-b-2 border-orange-500 transition-all text-xs md:text-base whitespace-nowrap shrink-0 flex items-center gap-1 cursor-pointer";
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    async function claimFreeText() {
+        const name = document.getElementById('lead-name').value.trim();
+        const email = document.getElementById('lead-email').value.trim();
+        const btn = document.getElementById('lead-btn');
+
+        if (!name || !email || !email.includes('@')) return alert("請留下完整的稱呼與 Email 座標。");
+
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> 封裝傳書中...';
+        btn.disabled = true;
+
+        try {
+            const res = await fetch(GAS_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify({ type: 'claim_free_pdf', name: name, email: email })
+            });
+            const result = await res.json();
+            if (result.status === 'success') {
+                alert("黑森林傳書已成功對接！《七重照見》深度文本 (PDF) 已傳送至您的信箱。");
+                if (result.pdf_url) window.open(result.pdf_url, '_blank');
+                document.getElementById('lead-name').value = '';
+                document.getElementById('lead-email').value = '';
+            } else { alert(result.message || "對接失敗。"); }
+        } catch(e) { alert("網路裂縫，信號無法送達。"); }
+        finally { btn.innerHTML = originalText; btn.disabled = false; }
+    }
+
+    function buyInteractiveManual() { openPreorderModal('私密互動探索小手冊'); }
+    function openPreorderModal(defaultType) {
+        if(defaultType) document.getElementById('order-type').value = defaultType;
+        toggleOrderFields();
+        document.getElementById('preorder-modal').classList.remove('hidden');
+    }
+    function closePreorderModal() { document.getElementById('preorder-modal').classList.add('hidden'); }
+
+    // 🚀 關鍵金流對接：動態生成原生 DOM 表單並提交，徹底杜絕二度轉義失真
+    async function submitPreorder() {
+    const name = document.getElementById('order-name').value.trim();
+    const email = document.getElementById('order-email').value.trim();
+    const orderType = document.getElementById('order-type').value;
+    const customAmount = document.getElementById('order-custom-amount').value;
+    const btn = document.getElementById('preorder-btn');
+
+    const phone = document.getElementById('order-phone').value.trim();
+    const address = document.getElementById('order-address').value.trim();
+
+    if (!name || !email || !email.includes('@')) {
+        return alert("請填寫您的稱呼與完整的 Email。");
+    }
+
+    if ((orderType.includes('掛畫') || orderType.includes('海報')) && (!phone || !address)) {
+        return alert("實體典藏品項請完整填寫配送電話與地址。");
+    }
+
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 正在解鎖主權金流閘道...';
+    btn.disabled = true;
+
+    try {
+        const res = await fetch(GAS_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ 
+                type: 'preorder', 
+                name: name, 
+                phone: phone || "數位品項免填", 
+                email: email, 
+                address: address || "數位品項免填", 
+                orderType: orderType,
+                customAmount: customAmount
+            })
+        });
+        const result = await res.json();
+        
+        if (result.status === 'success' && result.params && result.ecpay_url) {
+            // 💡 為了繞過當前網頁嚴格的 CSP 阻擋，我們直接將參數轉為新視窗的 HTML Form 提交
+            const modalBody = btn.parentElement;
+            btn.remove();
+
+            // 建立一個純淨的表單容器，完全不透過動態 eval 或被 CSP 限制的腳本
+            const formContainer = document.createElement('div');
+            formContainer.className = 'p-4 bg-black/80 rounded-2xl border border-orange-500/50 text-center space-y-3 mt-4';
+            formContainer.innerHTML = `
+                <p class="text-xs text-orange-300 font-bold">✨ 綠界安全通道已就緒</p>
+                <p class="text-[10px] text-slate-400">請點擊下方按鈕跳轉至綠界官方加密結帳頁面：</p>
+                <form id="ecpay-real-form" method="POST" action="${escapeHTML(result.ecpay_url)}">
+                    ${Object.keys(result.params).map(key => `<input type="hidden" name="${escapeHTML(key)}" value="${escapeHTML(result.params[key])}">`).join('')}
+                    <button type="submit" class="btn-magic w-full text-white text-xs font-black h-12 rounded-xl tracking-widest uppercase cursor-pointer flex items-center justify-center shadow-[0_0_20px_rgba(234,88,12,0.4)]">
+                        <i class="fa-solid fa-shield-halved mr-2"></i> 前往綠界安全付款
+                    </button>
+                </form>
+            `;
+            modalBody.appendChild(formContainer);
+
+        } else {
+            alert(result.message || "預購對接失敗。");
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        }
+    } catch(e) {
+        alert("訊號受阻，請稍後再試。");
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+    }
+}
+
+    function openPolicyModal(type) {
+        const titleEl = document.getElementById('policy-title');
+        const contentEl = document.getElementById('policy-content');
+        
+        if (type === 'privacy') {
+            titleEl.textContent = '隱私權政策 (Privacy Policy)';
+            contentEl.innerHTML = '<p>阿瓦隆計畫工作室重視您的個人隱私。我們所收集的姓名、Email、電話與地址資訊，僅用於配送實體果實、發送《阿瓦隆黑森林傳書》及客服對接。我們絕不將您的個人資料出售,出租或轉讓給第三方。</p>';
+        } else if (type === 'terms') {
+            titleEl.textContent = '服務條款 (Terms of Service)';
+            contentEl.innerHTML = '<p>歡迎來到阿瓦隆觀測站 (avalon-protocol.com)。本網站所提供之所有畫作、文字、數位 PDF 文本與 Podcast 音訊，版權均屬阿瓦隆計畫工作室所有。未經授權，不得擅自重製、修改或用於商業轉售。</p>';
+        } else if (type === 'refund') {
+            titleEl.textContent = '退換貨與預購須知 (Refund & Shipping)';
+            contentEl.innerHTML = '<p><strong>【預購與出貨時程】</strong><br>1. 普普限定海報：下單後約 7-10 個工作天內寄出。<br>2. 畫廊級典藏掛畫：專屬客製懸浮裝裱，下單後約 10-14 個工作天內完工由黑貓宅急便寄出。<br><br><strong>【退換貨政策】</strong><br>根據消費者保護法規定，客製化商品（包含簽名與限量編號之實體掛畫）與已交付之數位下載內容（PDF小手冊）不適用 7 天鑑賞期退貨。若收到實體畫作有運送損壞，請於收到商品 3 日內拍照聯繫客服 amor.avalon427@gmail.com，我們將為您免費更換新品。</p>';
+        }
+        
+        document.getElementById('policy-modal').classList.add('hidden'); // bugfix
+        document.getElementById('policy-modal').classList.remove('hidden');
+    }
+
+    function closePolicyModal() { document.getElementById('policy-modal').classList.add('hidden'); }
+
+    function filterPosts(category) {
+        const buttons = document.querySelectorAll('#category-filters button');
+        buttons.forEach(btn => {
+            btn.className = btn.textContent.includes(category) || (category === 'all' && btn.textContent.includes('全部'))
+                ? "text-orange-500 font-bold text-xs uppercase tracking-widest cursor-pointer px-1 py-0.5"
+                : "text-slate-500 hover:text-orange-400 font-bold text-xs uppercase tracking-widest transition-colors cursor-pointer px-1 py-0.5";
+        });
+
+        const filtered = category === 'all' ? window.app.postsData : window.app.postsData.filter(p => p.category === category);
+        renderPostsUI(filtered);
+    }
+
+    function renderEpisodes(episodes) {
+        const box = document.getElementById('episodes-list');
+        box.innerHTML = '';
+        if (!episodes || episodes.length === 0) {
+            box.innerHTML = '<div class="text-center text-slate-500 py-6 text-xs">目前沒有歷史聲波紀錄。</div>';
+            return;
+        }
+        episodes.forEach(ep => {
+            const item = document.createElement('div');
+            item.className = 'p-4 sm:p-5 bg-black/60 rounded-2xl border border-white/5 space-y-2.5 hover:border-orange-500/30 transition-colors shadow-md';
+            let embedHTML = '';
+            if (ep.audio_embed_url) {
+                if (ep.embed_type === 'youtube' || ep.audio_embed_url.includes('youtube.com') || ep.audio_embed_url.includes('youtu.be')) {
+                    embedHTML = `<div class="aspect-video w-full rounded-xl overflow-hidden border border-white/10 mt-2"><iframe src="${escapeHTML(ep.audio_embed_url)}" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>`;
+                } else {
+                    embedHTML = `<div class="w-full rounded-xl overflow-hidden border border-white/10 mt-2"><iframe src="${escapeHTML(ep.audio_embed_url)}" class="w-full h-[500px] sm:h-[520px]" frameborder="0" scrolling="no" allow="autoplay"></iframe></div>`;
+                }
+            }
+            item.innerHTML = `<div class="flex justify-between items-center"><span class="text-xs font-bold text-orange-400 font-mono">${escapeHTML(ep.episode_code || 'Vol.00')}</span><span class="text-[10px] text-slate-500 font-mono">${escapeHTML(ep.date || '')}</span></div><h4 class="text-sm md:text-base font-bold text-white serif">${escapeHTML(ep.title)}</h4><p class="text-xs text-slate-400 leading-relaxed font-light">${escapeHTML(ep.summary)}</p>${embedHTML}`;
+            box.appendChild(item);
+        });
+    }
+
+    function renderPosts(posts, globalViews = 0) {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('global-views').textContent = globalViews;
+        window.app.postsData = posts;
+        renderPostsUI(posts);
+    }
+
+    function renderPostsUI(posts) {
+        const list = document.getElementById('post-list');
+        list.innerHTML = '';
+        if(!posts || posts.length === 0) {
+            list.innerHTML = '<div class="text-center text-slate-500 py-10">此頻段目前沒有觀測紀錄。</div>';
+            return;
+        }
+        posts.forEach(post => {
+            const article = document.createElement('div');
+            article.className = 'fade-in';
+            article.innerHTML = `<article class="glass-panel p-6 sm:p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] relative overflow-hidden group border border-white/10 hover:border-orange-500/30 transition-colors"><div class="flex justify-between items-center mb-3 md:mb-4"><div class="text-[9.5px] md:text-[10px] bg-orange-500/20 text-orange-400 px-2.5 py-0.5 rounded-full font-bold uppercase tracking-widest">${escapeHTML(post.category || '未分類')}</div><div class="text-[9.5px] md:text-[10px] text-slate-400 font-mono flex items-center gap-2"><span><i class="fa-solid fa-clock"></i> ${escapeHTML(post.date)}</span><span><i class="fa-solid fa-eye text-orange-500/70"></i> ${post.views || 0}</span></div></div><h2 class="text-xl sm:text-2xl md:text-3xl text-white font-bold serif mb-4 md:mb-6 leading-snug">${escapeHTML(post.title)}</h2><div class="text-slate-300 text-xs sm:text-sm md:text-[15px] leading-loose font-light whitespace-pre-wrap mb-6 md:mb-10">${escapeHTML(post.content).replace(/&lt;br&gt;/g, '<br>')}</div></article>`;
+            list.appendChild(article);
+        });
+    }
+
+    window.onload = async function() {
+        try {
+            const res = await fetch(GAS_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ type: 'get_posts' }) });
+            const result = await res.json();
+            if (result.status === 'success') {
+                renderPosts(result.data, result.globalViews);
+                if (result.episodes) renderEpisodes(result.episodes);
+                if (result.config && result.config.Blog_Title) document.querySelector('h1').textContent = result.config.Blog_Title;
+            }
+        } catch (e) { document.getElementById('loading').innerHTML = '<span class="text-red-400">信號干擾，無法讀取觀測日誌。</span>'; }
+    };
+
+    const app = { postsData: [] };
+    window.app = app;
+  </script>
+</body>
+</html>
