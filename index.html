@@ -443,76 +443,81 @@
     }
     function closePreorderModal() { document.getElementById('preorder-modal').classList.add('hidden'); }
 
-    // 🚀 關鍵金流對接：動態生成原生 DOM 表單並提交，徹底杜絕二度轉義失真
+    // 🚀 關鍵金流對接：零阻抗自動發射引擎 (Zero-Impedance Auto-Submit)
     async function submitPreorder() {
-    const name = document.getElementById('order-name').value.trim();
-    const email = document.getElementById('order-email').value.trim();
-    const orderType = document.getElementById('order-type').value;
-    const customAmount = document.getElementById('order-custom-amount').value;
-    const btn = document.getElementById('preorder-btn');
+        const name = document.getElementById('order-name').value.trim();
+        const email = document.getElementById('order-email').value.trim();
+        const orderType = document.getElementById('order-type').value;
+        const customAmount = document.getElementById('order-custom-amount').value;
+        const btn = document.getElementById('preorder-btn');
 
-    const phone = document.getElementById('order-phone').value.trim();
-    const address = document.getElementById('order-address').value.trim();
+        const phone = document.getElementById('order-phone').value.trim();
+        const address = document.getElementById('order-address').value.trim();
 
-    if (!name || !email || !email.includes('@')) {
-        return alert("請填寫您的稱呼與完整的 Email。");
-    }
+        if (!name || !email || !email.includes('@')) {
+            return alert("請填寫您的稱呼與完整的 Email。");
+        }
 
-    if ((orderType.includes('掛畫') || orderType.includes('海報')) && (!phone || !address)) {
-        return alert("實體典藏品項請完整填寫配送電話與地址。");
-    }
+        if ((orderType.includes('掛畫') || orderType.includes('海報')) && (!phone || !address)) {
+            return alert("實體典藏品項請完整填寫配送電話與地址。");
+        }
 
-    const originalText = btn.innerHTML;
-    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 正在解鎖主權金流閘道...';
-    btn.disabled = true;
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-satellite-dish fa-spin"></i> 正在解鎖主權金流閘道...';
+        btn.disabled = true;
 
-    try {
-        const res = await fetch(GAS_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-            body: JSON.stringify({ 
-                type: 'preorder', 
-                name: name, 
-                phone: phone || "數位品項免填", 
-                email: email, 
-                address: address || "數位品項免填", 
-                orderType: orderType,
-                customAmount: customAmount
-            })
-        });
-        const result = await res.json();
-        
-        if (result.status === 'success' && result.params && result.ecpay_url) {
-            // 💡 為了繞過當前網頁嚴格的 CSP 阻擋，我們直接將參數轉為新視窗的 HTML Form 提交
-            const modalBody = btn.parentElement;
-            btn.remove();
+        try {
+            const res = await fetch(GAS_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify({ 
+                    type: 'preorder', 
+                    name: name, 
+                    phone: phone || "數位品項免填", 
+                    email: email, 
+                    address: address || "數位品項免填", 
+                    orderType: orderType,
+                    customAmount: customAmount
+                })
+            });
+            const result = await res.json();
+            
+            if (result.status === 'success' && result.params && result.ecpay_url) {
+                // 💡 零阻抗跳轉：不再詢問，不再讓客戶多點擊一次，直接強制相變
+                
+                // 1. 將按鈕變更為不可逆的躍遷狀態
+                btn.innerHTML = '<i class="fa-solid fa-bolt text-orange-400"></i> 主權通道已建立，正在傳送...';
+                btn.className = "w-full bg-black border border-orange-500/50 text-orange-400 text-xs font-black h-11 rounded-xl tracking-widest uppercase flex items-center justify-center cursor-not-allowed shadow-[0_0_20px_rgba(234,88,12,0.5)]";
+                
+                // 2. 在背景建立純淨表單矩陣
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = result.ecpay_url;
+                form.target = '_top'; // 強制在當前最高層級視窗跳轉，摧毀所有框架限制
 
-            // 建立一個純淨的表單容器，完全不透過動態 eval 或被 CSP 限制的腳本
-            const formContainer = document.createElement('div');
-            formContainer.className = 'p-4 bg-black/80 rounded-2xl border border-orange-500/50 text-center space-y-3 mt-4';
-            formContainer.innerHTML = `
-                <p class="text-xs text-orange-300 font-bold">✨ 綠界安全通道已就緒</p>
-                <p class="text-[10px] text-slate-400">請點擊下方按鈕跳轉至綠界官方加密結帳頁面：</p>
-                <form id="ecpay-real-form" method="POST" action="${escapeHTML(result.ecpay_url)}">
-                    ${Object.keys(result.params).map(key => `<input type="hidden" name="${escapeHTML(key)}" value="${escapeHTML(result.params[key])}">`).join('')}
-                    <button type="submit" class="btn-magic w-full text-white text-xs font-black h-12 rounded-xl tracking-widest uppercase cursor-pointer flex items-center justify-center shadow-[0_0_20px_rgba(234,88,12,0.4)]">
-                        <i class="fa-solid fa-shield-halved mr-2"></i> 前往綠界安全付款
-                    </button>
-                </form>
-            `;
-            modalBody.appendChild(formContainer);
+                for (const key in result.params) {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = key;
+                    input.value = result.params[key];
+                    form.appendChild(input);
+                }
 
-        } else {
-            alert(result.message || "預購對接失敗。");
+                // 3. 掛載並毫秒級觸發發射
+                document.body.appendChild(form);
+                form.submit();
+
+            } else {
+                alert(result.message || "預購對接失敗。");
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        } catch(e) {
+            alert("訊號受阻，請稍後再試。");
             btn.innerHTML = originalText;
             btn.disabled = false;
         }
-    } catch(e) {
-        alert("訊號受阻，請稍後再試。");
-        btn.innerHTML = originalText;
-        btn.disabled = false;
     }
-}
 
     function openPolicyModal(type) {
         const titleEl = document.getElementById('policy-title');
