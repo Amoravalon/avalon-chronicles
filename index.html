@@ -54,6 +54,14 @@
       <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-white serif tracking-widest mb-2 leading-tight">阿瓦隆觀測日誌</h1>
       <p class="text-slate-400 text-[10px] md:text-xs tracking-[0.2em] uppercase font-bold text-orange-400/80 px-2">I AM THE SOUL'S TRUEST WILDERNESS.</p>
       
+      <!-- 尋路者注入：The Gatekeeper 新手靈魂校準橫幅 -->
+      <div class="bg-black/60 border border-emerald-500/30 rounded-2xl p-4 max-w-2xl mx-auto mt-6 mb-2 flex items-start sm:items-center gap-3 shadow-[0_0_20px_rgba(16,185,129,0.1)] fade-in">
+        <i class="fa-solid fa-compass text-emerald-500 text-lg sm:text-xl mt-0.5 sm:mt-0 animate-pulse"></i>
+        <p class="text-[11px] sm:text-xs text-slate-300 leading-relaxed font-light text-left">
+          「初次踏入黑森林？請先參閱奠基之作 <strong class="text-emerald-400 cursor-pointer hover:underline" onclick="switchDimension('episodes')">【第 0 期】</strong>，校準您的靈魂地圖，再進入 <strong class="text-orange-400 cursor-pointer hover:underline" onclick="switchDimension('episodes')">【Vol. 01 小紅帽篇】</strong>直視親密關係中的投射與陰影。」
+        </p>
+      </div>
+
       <div class="flex justify-start md:justify-center gap-4 md:gap-8 mt-6 md:mt-8 overflow-x-auto custom-scrollbar pb-2 px-1 -mx-4 px-5 md:mx-0">
           <button onclick="switchDimension('chronicles')" id="tab-chronicles" class="text-orange-500 font-bold tracking-widest uppercase pb-2 border-b-2 border-orange-500 transition-all text-xs md:text-base whitespace-nowrap shrink-0 cursor-pointer">觀測日誌</button>
           <button onclick="switchDimension('episodes')" id="tab-episodes" class="text-slate-500 hover:text-orange-400 font-bold tracking-widest uppercase pb-2 border-b-2 border-transparent transition-all text-xs md:text-base whitespace-nowrap shrink-0 flex items-center gap-1 cursor-pointer"><i class="fa-solid fa-podcast text-[10px] md:text-xs text-orange-400"></i> 阿瓦隆聲波</button>
@@ -554,6 +562,7 @@
         renderPostsUI(filtered);
     }
 
+    // 尋路者注入：聲波雙塔編排與 Contextual Bridge 引力漏斗
     function renderEpisodes(episodes) {
         const box = document.getElementById('episodes-list');
         box.innerHTML = '';
@@ -561,25 +570,58 @@
             box.innerHTML = '<div class="text-center text-slate-500 py-6 text-xs">目前沒有歷史聲波紀錄。</div>';
             return;
         }
-        episodes.forEach(ep => {
+
+        // 結算主權光度：強制置頂第 0 期，其餘依照原有能量流排序
+        let sortedEpisodes = [...episodes];
+        const ep0Index = sortedEpisodes.findIndex(ep => ep.episode_code === 'Vol.00' || ep.title.includes('第 0 期'));
+        if (ep0Index > -1) {
+            const ep0 = sortedEpisodes.splice(ep0Index, 1)[0];
+            sortedEpisodes.unshift(ep0); // 確保防禦瓦解在最前端
+        }
+
+        sortedEpisodes.forEach(ep => {
             const item = document.createElement('div');
-            item.className = 'p-4 sm:p-5 bg-black/60 rounded-2xl border border-white/5 space-y-2.5 hover:border-orange-500/30 transition-colors shadow-md';
+            item.className = 'p-4 sm:p-5 bg-black/60 rounded-2xl border border-white/5 space-y-2.5 hover:border-orange-500/30 transition-colors shadow-md relative overflow-hidden';
+            
+            // 守門人印記 (置頂標示) 與 橋樑動線
+            let badgeHTML = '';
+            let bridgeHTML = '';
+
+            if (ep.episode_code === 'Vol.00' || ep.title.includes('第 0 期')) {
+                badgeHTML = `<span class="absolute top-0 right-0 bg-emerald-500/20 text-emerald-400 text-[9px] font-bold px-2 py-1 rounded-bl-xl border-b border-l border-emerald-500/30">奠基錨石</span>`;
+                // 聽覺到 PDF 文本的相變
+                bridgeHTML = `
+                <div class="pt-3 mt-3 border-t border-white/10 flex justify-between items-center bg-emerald-900/10 -mx-4 -mb-4 px-4 py-3 sm:-mx-5 sm:-mb-5 sm:px-5">
+                    <span class="text-[10px] text-slate-400">靈魂地圖未校準？</span>
+                    <button onclick="switchDimension('chronicles')" class="text-emerald-400 hover:text-emerald-300 text-[10px] font-bold uppercase tracking-widest transition-colors"><i class="fa-solid fa-scroll mr-1"></i> 領取《七重照見》文本</button>
+                </div>`;
+            } else if (ep.episode_code === 'Vol.01' || ep.title.includes('小紅帽')) {
+                badgeHTML = `<span class="absolute top-0 right-0 bg-orange-500/20 text-orange-400 text-[9px] font-bold px-2 py-1 rounded-bl-xl border-b border-l border-orange-500/30">核心展演</span>`;
+                // 聽覺到物質典藏與營火的相變
+                bridgeHTML = `
+                <div class="pt-3 mt-3 border-t border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 bg-orange-900/10 -mx-4 -mb-4 px-4 py-3 sm:-mx-5 sm:-mb-5 sm:px-5">
+                    <span class="text-[10px] text-slate-400">靈魂被這段頻率觸動？</span>
+                    <div class="flex gap-4">
+                        <button onclick="switchDimension('store')" class="text-orange-400 hover:text-orange-300 text-[10px] font-bold uppercase tracking-widest transition-colors"><i class="fa-solid fa-gem mr-1"></i> 典藏《小紅帽》實體果實</button>
+                        <button onclick="switchDimension('support')" class="text-orange-500 hover:text-orange-400 text-[10px] font-bold uppercase tracking-widest transition-colors"><i class="fa-solid fa-fire mr-1"></i> 添柴</button>
+                    </div>
+                </div>`;
+            }
+
             let embedHTML = '';
             if (ep.audio_embed_url) {
                 if (ep.embed_type === 'youtube' || ep.audio_embed_url.includes('youtube.com') || ep.audio_embed_url.includes('youtu.be')) {
-                    embedHTML = `<div class="aspect-video w-full rounded-xl overflow-hidden border border-white/10 mt-2"><iframe src="${escapeHTML(ep.audio_embed_url)}" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>`;
+                    embedHTML = `<div class="aspect-video w-full rounded-xl overflow-hidden border border-white/10 mt-2 relative z-10"><iframe src="${escapeHTML(ep.audio_embed_url)}" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>`;
                 } else {
-                    embedHTML = `<div class="w-full rounded-xl overflow-hidden border border-white/10 mt-2"><iframe src="${escapeHTML(ep.audio_embed_url)}" class="w-full h-[500px] sm:h-[520px]" frameborder="0" scrolling="no" allow="autoplay"></iframe></div>`;
+                    embedHTML = `<div class="w-full rounded-xl overflow-hidden border border-white/10 mt-2 relative z-10"><iframe src="${escapeHTML(ep.audio_embed_url)}" class="w-full h-[500px] sm:h-[520px]" frameborder="0" scrolling="no" allow="autoplay"></iframe></div>`;
                 }
             }
-            // 部署內容橋樑：附加添柴按鈕
-            item.innerHTML = `<div class="flex justify-between items-center"><span class="text-xs font-bold text-orange-400 font-mono">${escapeHTML(ep.episode_code || 'Vol.00')}</span><span class="text-[10px] text-slate-500 font-mono">${escapeHTML(ep.date || '')}</span></div><h4 class="text-sm md:text-base font-bold text-white serif">${escapeHTML(ep.title)}</h4><p class="text-xs text-slate-400 leading-relaxed font-light">${escapeHTML(ep.summary)}</p>${embedHTML}
-            <div class="pt-3 mt-3 border-t border-white/10 text-right">
-                <button onclick="switchDimension('support')" class="text-orange-500 hover:text-orange-400 text-[10px] font-bold uppercase tracking-widest transition-colors cursor-pointer"><i class="fa-solid fa-fire mr-1"></i> 覺得靈魂被觸動？為這段頻率添柴</button>
-            </div>`;
+            
+            item.innerHTML = `${badgeHTML}<div class="flex justify-between items-center pr-12"><span class="text-xs font-bold ${ep.episode_code === 'Vol.00' ? 'text-emerald-400' : 'text-orange-400'} font-mono">${escapeHTML(ep.episode_code || '')}</span><span class="text-[10px] text-slate-500 font-mono">${escapeHTML(ep.date || '')}</span></div><h4 class="text-sm md:text-base font-bold text-white serif mt-1">${escapeHTML(ep.title)}</h4><p class="text-[11px] md:text-xs text-slate-400 leading-relaxed font-light mt-1">${escapeHTML(ep.summary)}</p>${embedHTML}${bridgeHTML}`;
             box.appendChild(item);
         });
     }
+    // 注入結束
 
     function renderPosts(posts, globalViews = 0) {
         document.getElementById('loading').style.display = 'none';
