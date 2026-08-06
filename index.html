@@ -58,7 +58,7 @@
           <button onclick="switchDimension('chronicles')" id="tab-chronicles" class="text-orange-500 font-bold tracking-widest uppercase pb-2 border-b-2 border-orange-500 transition-all text-xs md:text-base whitespace-nowrap shrink-0 cursor-pointer">觀測日誌</button>
           <button onclick="switchDimension('episodes')" id="tab-episodes" class="text-slate-500 hover:text-orange-400 font-bold tracking-widest uppercase pb-2 border-b-2 border-transparent transition-all text-xs md:text-base whitespace-nowrap shrink-0 flex items-center gap-1 cursor-pointer"><i class="fa-solid fa-podcast text-[10px] md:text-xs text-orange-400"></i> 阿瓦隆聲波</button>
           <button onclick="switchDimension('store')" id="tab-store" class="text-slate-500 hover:text-orange-400 font-bold tracking-widest uppercase pb-2 border-b-2 border-transparent transition-all text-xs md:text-base whitespace-nowrap shrink-0 flex items-center gap-1 cursor-pointer"><i class="fa-solid fa-gem text-[10px] md:text-xs text-orange-400"></i> 典藏果實</button>
-          <button onclick="switchDimension('support')" id="tab-support" class="text-slate-500 hover:text-orange-400 font-bold tracking-widest uppercase pb-2 border-b-2 border-transparent transition-all text-xs md:text-base whitespace-nowrap shrink-0 flex items-center gap-1 cursor-pointer"><i class="fa-solid fa-fire-flame-curved text-[10px] md:text-xs text-orange-400"></i> 為阿瓦隆添柴</button>
+          <button onclick="switchDimension('support')" id="tab-support" class="text-slate-500 hover:text-orange-400 font-bold tracking-widest uppercase pb-2 border-b-2 border-transparent transition-all text-xs md:text-base whitespace-nowrap shrink-0 flex items-center gap-1 cursor-pointer"><i class="fa-solid fa-fire-flame-curved text-[10px] md:text-xs text-orange-400"></i> 為阿瓦隆添柴(贊助)</button>
           <button onclick="switchDimension('ethos')" id="tab-ethos" class="text-slate-500 hover:text-orange-400 font-bold tracking-widest uppercase pb-2 border-b-2 border-transparent transition-all text-xs md:text-base whitespace-nowrap shrink-0 flex items-center gap-1 cursor-pointer">阿瓦隆宣告</button>
       </div>
     </header>
@@ -154,7 +154,7 @@
         <div class="border-b border-white/10 pb-6 space-y-4">
           <h2 class="text-2xl sm:text-3xl font-black text-white serif tracking-widest">神木與果實 <span class="text-xs text-orange-500/50 uppercase tracking-widest block mt-2">The Core Commerce</span></h2>
           <blockquote class="text-[13px] text-slate-300 max-w-xl mx-auto leading-loose font-light italic border-l-2 border-orange-500/40 pl-4 text-left">
-            「如果我們有提供你需要的商品，請選擇以消費的方式支持我們繼續創作優質的節目，提供獨特的觀點。」
+            「我們不進行廉價的促銷。若這些藝術結晶能為你的空間帶來靈魂震動，請直接以消費完成這場價值的對等交換。」
           </blockquote>
         </div>
 
@@ -200,7 +200,7 @@
             為黑森林添柴 <span class="text-xs text-orange-500/50 uppercase tracking-widest block mt-2">Fuel the Fire</span>
           </h2>
           <p class="text-[13px] text-slate-400 max-w-lg mx-auto leading-relaxed font-light mt-4">
-            「阿瓦隆的營火不靠施捨而燃燒，每一束遞上來的柴薪，都是這片黑森林延續下去的證明。」
+            「單純想要支持我們繼續燃燒營火，歡迎遞上每一束柴薪，讓我們持續燃燒。如果我們有提供你需要的商品，希望你以消費的方式支持我們。」
           </p>
         </div>
 
@@ -572,7 +572,11 @@
                     embedHTML = `<div class="w-full rounded-xl overflow-hidden border border-white/10 mt-2"><iframe src="${escapeHTML(ep.audio_embed_url)}" class="w-full h-[500px] sm:h-[520px]" frameborder="0" scrolling="no" allow="autoplay"></iframe></div>`;
                 }
             }
-            item.innerHTML = `<div class="flex justify-between items-center"><span class="text-xs font-bold text-orange-400 font-mono">${escapeHTML(ep.episode_code || 'Vol.00')}</span><span class="text-[10px] text-slate-500 font-mono">${escapeHTML(ep.date || '')}</span></div><h4 class="text-sm md:text-base font-bold text-white serif">${escapeHTML(ep.title)}</h4><p class="text-xs text-slate-400 leading-relaxed font-light">${escapeHTML(ep.summary)}</p>${embedHTML}`;
+            // 部署內容橋樑：附加添柴按鈕
+            item.innerHTML = `<div class="flex justify-between items-center"><span class="text-xs font-bold text-orange-400 font-mono">${escapeHTML(ep.episode_code || 'Vol.00')}</span><span class="text-[10px] text-slate-500 font-mono">${escapeHTML(ep.date || '')}</span></div><h4 class="text-sm md:text-base font-bold text-white serif">${escapeHTML(ep.title)}</h4><p class="text-xs text-slate-400 leading-relaxed font-light">${escapeHTML(ep.summary)}</p>${embedHTML}
+            <div class="pt-3 mt-3 border-t border-white/10 text-right">
+                <button onclick="switchDimension('support')" class="text-orange-500 hover:text-orange-400 text-[10px] font-bold uppercase tracking-widest transition-colors cursor-pointer"><i class="fa-solid fa-fire mr-1"></i> 覺得靈魂被觸動？為這段頻率添柴</button>
+            </div>`;
             box.appendChild(item);
         });
     }
