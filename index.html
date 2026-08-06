@@ -573,7 +573,7 @@
 
         // 結算主權光度：強制置頂第 0 期，其餘依照原有能量流排序
         let sortedEpisodes = [...episodes];
-        const ep0Index = sortedEpisodes.findIndex(ep => ep.episode_code === 'Vol.00' || ep.title.includes('第 0 期'));
+        const ep0Index = sortedEpisodes.findIndex(ep => (ep.Episode_Code === 'Vol.00' || ep.episode_code === 'Vol.00') || (ep.Title && ep.Title.includes('第 0 期')) || (ep.title && ep.title.includes('第 0 期')));
         if (ep0Index > -1) {
             const ep0 = sortedEpisodes.splice(ep0Index, 1)[0];
             sortedEpisodes.unshift(ep0); // 確保防禦瓦解在最前端
@@ -583,11 +583,19 @@
             const item = document.createElement('div');
             item.className = 'p-4 sm:p-5 bg-black/60 rounded-2xl border border-white/5 space-y-2.5 hover:border-orange-500/30 transition-colors shadow-md relative overflow-hidden';
             
+            // 統一鍵值讀取 (防禦 GAS 傳遞時的大小寫變異)
+            const epCode = ep.Episode_Code || ep.episode_code || '';
+            const epTitle = ep.Title || ep.title || '';
+            const epSummary = ep.Summary || ep.summary || '';
+            const epDate = ep.Date || ep.date || '';
+            const epEmbedType = ep.Embed_Type || ep.embed_type || '';
+            const epMediaUrl = ep.Media_Url || ep.media_url || ep.audio_embed_url || '';
+
             // 守門人印記 (置頂標示) 與 橋樑動線
             let badgeHTML = '';
             let bridgeHTML = '';
 
-            if (ep.episode_code === 'Vol.00' || ep.title.includes('第 0 期')) {
+            if (epCode === 'Vol.00' || epTitle.includes('第 0 期')) {
                 badgeHTML = `<span class="absolute top-0 right-0 bg-emerald-500/20 text-emerald-400 text-[9px] font-bold px-2 py-1 rounded-bl-xl border-b border-l border-emerald-500/30">奠基錨石</span>`;
                 // 聽覺到 PDF 文本的相變
                 bridgeHTML = `
@@ -595,7 +603,7 @@
                     <span class="text-[10px] text-slate-400">靈魂地圖未校準？</span>
                     <button onclick="switchDimension('chronicles')" class="text-emerald-400 hover:text-emerald-300 text-[10px] font-bold uppercase tracking-widest transition-colors"><i class="fa-solid fa-scroll mr-1"></i> 領取《七重照見》文本</button>
                 </div>`;
-            } else if (ep.episode_code === 'Vol.01' || ep.title.includes('小紅帽')) {
+            } else if (epCode === 'Vol.01' || epTitle.includes('小紅帽')) {
                 badgeHTML = `<span class="absolute top-0 right-0 bg-orange-500/20 text-orange-400 text-[9px] font-bold px-2 py-1 rounded-bl-xl border-b border-l border-orange-500/30">核心展演</span>`;
                 // 聽覺到物質典藏與營火的相變
                 bridgeHTML = `
@@ -608,20 +616,31 @@
                 </div>`;
             }
 
+            // 尋路者管線組裝：動態捕捉資料庫的多維度屬性，防禦靜默斷路
             let embedHTML = '';
-            if (ep.audio_embed_url) {
-                if (ep.embed_type === 'youtube' || ep.audio_embed_url.includes('youtube.com') || ep.audio_embed_url.includes('youtu.be')) {
-                    embedHTML = `<div class="aspect-video w-full rounded-xl overflow-hidden border border-white/10 mt-2 relative z-10"><iframe src="${escapeHTML(ep.audio_embed_url)}" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>`;
+
+            // 啟動緩解矩陣：只有在捕捉到真實能量源，且不為字串 'undefined' 時才進行渲染
+            if (epMediaUrl && epMediaUrl !== 'undefined' && epMediaUrl.trim() !== '') {
+                let isYouTube = epEmbedType.toLowerCase() === 'youtube' || epMediaUrl.includes('youtube.com') || epMediaUrl.includes('youtu.be');
+                let finalUrl = epMediaUrl;
+                
+                if (isYouTube) {
+                    // Regex 文本解構：精準萃取 YouTube ID，並強制相變為 Embed 標準態
+                    const ytRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
+                    const match = epMediaUrl.match(ytRegex);
+                    if (match && match[1]) {
+                        finalUrl = `https://www.youtube.com/embed/${match[1]}`;
+                    }
+                    embedHTML = `<div class="aspect-video w-full rounded-xl overflow-hidden border border-white/10 mt-2 relative z-10"><iframe src="${escapeHTML(finalUrl)}" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>`;
                 } else {
-                    embedHTML = `<div class="w-full rounded-xl overflow-hidden border border-white/10 mt-2 relative z-10"><iframe src="${escapeHTML(ep.audio_embed_url)}" class="w-full h-[500px] sm:h-[520px]" frameborder="0" scrolling="no" allow="autoplay"></iframe></div>`;
+                    embedHTML = `<div class="w-full rounded-xl overflow-hidden border border-white/10 mt-2 relative z-10"><iframe src="${escapeHTML(finalUrl)}" class="w-full h-[500px] sm:h-[520px]" frameborder="0" scrolling="no" allow="autoplay"></iframe></div>`;
                 }
             }
             
-            item.innerHTML = `${badgeHTML}<div class="flex justify-between items-center pr-12"><span class="text-xs font-bold ${ep.episode_code === 'Vol.00' ? 'text-emerald-400' : 'text-orange-400'} font-mono">${escapeHTML(ep.episode_code || '')}</span><span class="text-[10px] text-slate-500 font-mono">${escapeHTML(ep.date || '')}</span></div><h4 class="text-sm md:text-base font-bold text-white serif mt-1">${escapeHTML(ep.title)}</h4><p class="text-[11px] md:text-xs text-slate-400 leading-relaxed font-light mt-1">${escapeHTML(ep.summary)}</p>${embedHTML}${bridgeHTML}`;
+            item.innerHTML = `${badgeHTML}<div class="flex justify-between items-center pr-12"><span class="text-xs font-bold ${epCode === 'Vol.00' ? 'text-emerald-400' : 'text-orange-400'} font-mono">${escapeHTML(epCode)}</span><span class="text-[10px] text-slate-500 font-mono">${escapeHTML(epDate)}</span></div><h4 class="text-sm md:text-base font-bold text-white serif mt-1">${escapeHTML(epTitle)}</h4><p class="text-[11px] md:text-xs text-slate-400 leading-relaxed font-light mt-1">${escapeHTML(epSummary)}</p>${embedHTML}${bridgeHTML}`;
             box.appendChild(item);
         });
     }
-    // 注入結束
 
     function renderPosts(posts, globalViews = 0) {
         document.getElementById('loading').style.display = 'none';
