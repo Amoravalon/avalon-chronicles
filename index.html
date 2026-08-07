@@ -58,7 +58,7 @@
       <div class="bg-black/60 border border-emerald-500/30 rounded-2xl p-4 max-w-2xl mx-auto mt-6 mb-2 flex items-start sm:items-center gap-3 shadow-[0_0_20px_rgba(16,185,129,0.1)] fade-in">
         <i class="fa-solid fa-compass text-emerald-500 text-lg sm:text-xl mt-0.5 sm:mt-0 animate-pulse"></i>
         <p class="text-[11px] sm:text-xs text-slate-300 leading-relaxed font-light text-left">
-          「初次踏入黑森林？請先參閱奠基之作 <strong class="text-emerald-400 cursor-pointer hover:underline" onclick="switchDimension('episodes')">【第 0 期】</strong>，校準您的靈魂地圖，再進入 <strong class="text-orange-400 cursor-pointer hover:underline" onclick="switchDimension('episodes')">【Vol. 01 小紅帽篇】</strong>直視親密關係中的投射與陰影。」
+          「初次踏入黑森林？請先參閱奠基之作 <strong class="text-emerald-400 cursor-pointer hover:underline" onclick="switchDimension('episodes')">【第 0 期】</strong>，校準您的靈魂地圖，再進入 <strong class="text-orange-400 cursor-pointer hover:underline" onclick="switchDimension('episodes')">【Vol. 01 小紅帽篇】</strong>野狼從來不曾離開外婆的床。」
         </p>
       </div>
 
@@ -75,7 +75,7 @@
     <div id="view-chronicles" class="block space-y-8 md:space-y-12 fade-in">
       
       <!-- 🌟 區塊一：當期旗艦展演 (Featured Episode) -->
-      <section class="relative bg-black border border-orange-500/30 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-[0_0_40px_rgba(234,88,12,0.15)] group mt-2 mb-12">
+      <section class="relative bg-black border border-orange-500/30 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-[0_0_40px_rgba(234,88,12,0.15)] group mt-2">
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1/2 bg-[radial-gradient(ellipse_at_top,rgba(251,146,60,0.15)_0%,transparent_70%)] pointer-events-none"></div>
         <div class="p-6 sm:p-8 md:p-12 relative z-10 flex flex-col items-center text-center space-y-6 md:space-y-8">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20">
@@ -107,6 +107,27 @@
           </div>
         </div>
       </section>
+
+      <!-- 🌟 尋路者重構：靈魂回響箱 (Whispers Box) 移至首頁承接共鳴 -->
+      <div class="glass-panel p-6 sm:p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-orange-500/30 space-y-6 max-w-4xl mx-auto shadow-[0_0_30px_rgba(234,88,12,0.1)] mb-12 relative z-20">
+        <div class="text-center space-y-2">
+          <span class="text-orange-400 text-[10px] md:text-xs font-black tracking-[0.25em] uppercase block">
+            <i class="fa-solid fa-bottle-droplet mr-1.5"></i> 瓶中信與回響
+          </span>
+          <h3 class="text-xl sm:text-2xl font-black text-white serif tracking-widest">靈魂回響箱</h3>
+          <p class="text-xs sm:text-sm text-slate-400 max-w-lg mx-auto leading-relaxed font-light">
+            「聽完這期節目，你的冰山底層被觸動了嗎？留下你的碎碎唸或觀測心得，這會化作一封瓶中信，直接送到亞瑟的手中。」
+          </p>
+        </div>
+        
+        <div class="space-y-3.5 max-w-xl mx-auto pt-2">
+          <input type="text" id="whisper-name" placeholder="您的稱呼或暱稱" class="w-full bg-black/80 border border-white/10 focus:border-orange-500 rounded-xl px-4 py-3 text-xs text-white outline-none transition-colors">
+          <textarea id="whisper-message" rows="3" placeholder="寫下你的靈魂回響、觀測心得或想對亞瑟說的話..." class="w-full bg-black/80 border border-white/10 focus:border-orange-500 rounded-xl px-4 py-3 text-xs text-white outline-none resize-none custom-scrollbar transition-colors"></textarea>
+          <button onclick="submitWhisper()" id="whisper-btn" class="btn-magic w-full text-white text-xs font-black h-12 rounded-xl tracking-[0.15em] uppercase cursor-pointer flex items-center justify-center">
+            投遞瓶中信
+          </button>
+        </div>
+      </div>
 
       <!-- 🌟 區塊二：名單蒐集 (Lead Magnet) -->
       <section class="glass-panel p-6 sm:p-8 md:p-12 rounded-[2rem] md:rounded-[2.5rem] border border-orange-500/30 relative overflow-hidden text-center shadow-[0_0_30px_rgba(234,88,12,0.1)]">
@@ -252,14 +273,13 @@
             為黑森林添柴 <span class="text-xs text-orange-500/50 uppercase tracking-widest block mt-2">Fuel the Fire</span>
           </h2>
           
-<div class="max-w-lg mx-auto mt-6 text-left bg-black/40 border-l-2 border-orange-500/50 p-4 rounded-r-2xl space-y-1.5">
+          <div class="max-w-lg mx-auto mt-6 text-left bg-black/40 border-l-2 border-orange-500/50 p-4 rounded-r-2xl space-y-1.5">
             <span class="text-[10px] text-orange-400 font-bold uppercase tracking-widest block mb-1">關於營火的持續燃燒</span>
             <p class="text-[13px] text-slate-300 leading-relaxed font-light italic">
               「燈塔需要柴薪，方能長明。<br>
               若這座黑森林的頻率曾給予你共鳴，歡迎以你感到舒適的方式添柴，或至典藏收藏我們的藝術果實。<br>
               所有支持，皆是這場靈魂對話得以延續的底氣。」
             </p>
-
           </div>
         </div>
 
@@ -268,7 +288,6 @@
             <label class="text-[10px] text-orange-400 font-bold uppercase tracking-widest flex items-center justify-center"><i class="fa-solid fa-fire-flame-simple mr-1.5"></i> 自由遞上柴薪 (NT$)</label>
             <input type="number" id="direct-support-amount" value="100" min="10" placeholder="自由金額" class="w-full bg-black border-b-2 border-orange-500/30 focus:border-orange-500 px-4 py-3 text-lg text-white text-center outline-none font-serif transition-colors rounded-t-xl">
           </div>
-          <!-- 核心動能傳遞：將輸入框的數值直接拋入彈窗參數中 -->
           <button onclick="openPreorderModal('自由金額贊助', document.getElementById('direct-support-amount').value)" class="w-full text-white text-xs font-black h-12 rounded-xl uppercase tracking-widest cursor-pointer flex items-center justify-center bg-orange-500/10 hover:bg-orange-500 hover:shadow-[0_0_20px_rgba(234,88,12,0.4)] transition-all border border-orange-500/50">
             遞交柴火
           </button>
@@ -346,7 +365,7 @@
 
   </div>
 
-  <!-- Preorder Modal (🚀 動態表單降維：贊助/數位商品隱藏電話地址) -->
+  <!-- Preorder Modal -->
   <div id="preorder-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-3 sm:p-4 fade-in">
     <div class="glass-panel p-6 sm:p-8 rounded-3xl max-w-md w-full border border-orange-500/30 space-y-4 relative max-h-[90vh] overflow-y-auto custom-scrollbar">
       <button onclick="closePreorderModal()" class="absolute top-4 right-4 text-slate-500 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
@@ -366,7 +385,6 @@
       </p>
       
       <div class="space-y-2.5">
-        <!-- 選擇品項 -->
         <select id="order-type" onchange="toggleOrderFields()" class="w-full bg-black/80 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none">
           <option value="掛畫">【畫廊級典藏掛畫】40x40cm 限量20幅 (NT$ 3,600)</option>
           <option value="海報">【普普限定海報】40x40cm 14天預購 (NT$ 1,280)</option>
@@ -375,17 +393,14 @@
           <option value="自由金額贊助" selected>🔥【微光自由贊助】自由金額力挺營火</option>
         </select>
 
-        <!-- 動態自訂贊助金額 (僅在選擇贊助時顯影) -->
         <div id="custom-amount-box" class="space-y-1">
           <label class="text-[10px] text-orange-400 font-bold block"><i class="fa-solid fa-coins mr-1"></i> 請輸入贊助金額 (NT$)</label>
           <input type="number" id="order-custom-amount" value="100" min="10" placeholder="例如：100" class="w-full bg-black/80 border border-orange-500/40 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none font-bold">
         </div>
 
-        <!-- 稱呼與 Email (永遠必填) -->
         <input type="text" id="order-name" placeholder="您的稱呼或暱稱" class="w-full bg-black/80 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none">
         <input type="email" id="order-email" placeholder="聯絡 / 接收收據的 Email" class="w-full bg-black/80 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none">
 
-        <!-- 電話與寄送地址 (僅實體掛畫/海報時動態顯影) -->
         <div id="physical-shipping-box" class="space-y-2.5 hidden">
           <input type="tel" id="order-phone" placeholder="聯絡電話 (黑貓配送對接)" class="w-full bg-black/80 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none">
           <input type="text" id="order-address" placeholder="實體寄送地址" class="w-full bg-black/80 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none">
@@ -416,7 +431,6 @@
         return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
     }
 
-    // 🚀 動態表單降維切換：贊助/數位商品隱藏實體地址與電話，並開啟自由金額輸入框
     function toggleOrderFields() {
         const orderType = document.getElementById('order-type').value;
         const shippingBox = document.getElementById('physical-shipping-box');
@@ -492,19 +506,16 @@
 
     function buyInteractiveManual() { openPreorderModal('私密互動探索小手冊'); }
     
-    // 🚀 開闢雙通道：接收「商品類型」與「自訂金額能量」
     function openPreorderModal(defaultType, customAmount) {
         if(defaultType) document.getElementById('order-type').value = defaultType;
-        
-        // 【新增的物理通道】：如果外部有傳遞金額進來，就強制覆寫彈窗內的金額
         if(customAmount) document.getElementById('order-custom-amount').value = customAmount;
         
         toggleOrderFields();
         document.getElementById('preorder-modal').classList.remove('hidden');
     }
+    
     function closePreorderModal() { document.getElementById('preorder-modal').classList.add('hidden'); }
 
-    // 🚀 關鍵金流對接：零阻抗自動發射引擎 (Zero-Impedance Auto-Submit)
     async function submitPreorder() {
         const name = document.getElementById('order-name').value.trim();
         const email = document.getElementById('order-email').value.trim();
@@ -544,17 +555,13 @@
             const result = await res.json();
             
             if (result.status === 'success' && result.params && result.ecpay_url) {
-                // 💡 零阻抗跳轉：不再詢問，不再讓客戶多點擊一次，直接強制相變
-                
-                // 1. 將按鈕變更為不可逆的躍遷狀態
                 btn.innerHTML = '<i class="fa-solid fa-bolt text-orange-400"></i> 主權通道已建立，正在傳送...';
                 btn.className = "w-full bg-black border border-orange-500/50 text-orange-400 text-xs font-black h-11 rounded-xl tracking-widest uppercase flex items-center justify-center cursor-not-allowed shadow-[0_0_20px_rgba(234,88,12,0.5)]";
                 
-                // 2. 在背景建立純淨表單矩陣
                 const form = document.createElement('form');
                 form.method = 'POST';
                 form.action = result.ecpay_url;
-                form.target = '_top'; // 強制在當前最高層級視窗跳轉，摧毀所有框架限制
+                form.target = '_top'; 
 
                 for (const key in result.params) {
                     const input = document.createElement('input');
@@ -564,7 +571,6 @@
                     form.appendChild(input);
                 }
 
-                // 3. 掛載並毫秒級觸發發射
                 document.body.appendChild(form);
                 form.submit();
 
@@ -575,6 +581,42 @@
             }
         } catch(e) {
             alert("訊號受阻，請稍後再試。");
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        }
+    }
+
+    async function submitWhisper() {
+        const name = document.getElementById('whisper-name').value.trim();
+        const message = document.getElementById('whisper-message').value.trim();
+        const btn = document.getElementById('whisper-btn');
+
+        if (!name || !message) {
+            return alert("請留下您的稱呼與想說的話。");
+        }
+
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin mr-1.5"></i> 瓶中信漂流中...';
+        btn.disabled = true;
+
+        try {
+            const res = await fetch(GAS_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify({ type: 'submit_whisper', name: name, message: message })
+            });
+            const result = await res.json();
+            
+            if (result.status === 'success') {
+                alert("瓶中信已安全抵達黑森林，亞瑟已收到您的回響。");
+                document.getElementById('whisper-name').value = '';
+                document.getElementById('whisper-message').value = '';
+            } else {
+                alert(result.message || "信號受阻，投遞失敗。");
+            }
+        } catch(e) {
+            alert("網路裂縫，瓶中信無法送達。");
+        } finally {
             btn.innerHTML = originalText;
             btn.disabled = false;
         }
@@ -595,7 +637,7 @@
             contentEl.innerHTML = '<p><strong>【預購與出貨時程】</strong><br>1. 普普限定海報：下單後約 7-10 個工作天內寄出。<br>2. 畫廊級典藏掛畫：專屬客製懸浮裝裱，下單後約 10-14 個工作天內完工由黑貓宅急便寄出。<br><br><strong>【退換貨政策】</strong><br>根據消費者保護法規定，客製化商品（包含簽名與限量編號之實體掛畫）與已交付之數位下載內容（PDF小手冊）不適用 7 天鑑賞期退貨。若收到實體畫作有運送損壞，請於收到商品 3 日內拍照聯繫客服 amor.avalon427@gmail.com，我們將為您免費更換新品。</p>';
         }
         
-        document.getElementById('policy-modal').classList.add('hidden'); // bugfix
+        document.getElementById('policy-modal').classList.add('hidden');
         document.getElementById('policy-modal').classList.remove('hidden');
     }
 
@@ -613,7 +655,6 @@
         renderPostsUI(filtered);
     }
 
-    // 尋路者注入：聲波雙塔編排與【絕對白名單】防禦矩陣
     function renderEpisodes(episodes) {
         const box = document.getElementById('episodes-list');
         box.innerHTML = '';
@@ -622,33 +663,28 @@
             return;
         }
 
-        // 結算主權光度：強制置頂第 0 期，其餘依照原有能量流排序
         let sortedEpisodes = [...episodes];
         const ep0Index = sortedEpisodes.findIndex(ep => (ep.Episode_Code === 'Vol.00' || ep.episode_code === 'Vol.00') || (ep.Title && ep.Title.includes('第 0 期')) || (ep.title && ep.title.includes('第 0 期')));
         if (ep0Index > -1) {
             const ep0 = sortedEpisodes.splice(ep0Index, 1)[0];
-            sortedEpisodes.unshift(ep0); // 確保防禦瓦解在最前端
+            sortedEpisodes.unshift(ep0); 
         }
 
         sortedEpisodes.forEach(ep => {
             const item = document.createElement('div');
             item.className = 'p-4 sm:p-5 bg-black/60 rounded-2xl border border-white/5 space-y-2.5 hover:border-orange-500/30 transition-colors shadow-md relative overflow-hidden';
             
-            // 統一鍵值讀取 (防禦 GAS 傳遞時的大小寫變異)
             const epCode = ep.Episode_Code || ep.episode_code || '';
             const epTitle = ep.Title || ep.title || '';
             const epSummary = ep.Summary || ep.summary || '';
             const epDate = ep.Date || ep.date || '';
-            // 捕獲所有可能的 URL 變體
             const epMediaUrl = ep.Media_Url || ep.media_url || ep.audio_embed_url || ep.url || '';
 
-            // 守門人印記 (置頂標示) 與 橋樑動線
             let badgeHTML = '';
             let bridgeHTML = '';
 
             if (epCode === 'Vol.00' || epTitle.includes('第 0 期')) {
                 badgeHTML = `<span class="absolute top-0 right-0 bg-emerald-500/20 text-emerald-400 text-[9px] font-bold px-2 py-1 rounded-bl-xl border-b border-l border-emerald-500/30">奠基錨石</span>`;
-                // 聽覺到 PDF 文本的相變
                 bridgeHTML = `
                 <div class="pt-3 mt-3 border-t border-white/10 flex justify-between items-center bg-emerald-900/10 -mx-4 -mb-4 px-4 py-3 sm:-mx-5 sm:-mb-5 sm:px-5">
                     <span class="text-[10px] text-slate-400">靈魂地圖未校準？</span>
@@ -656,7 +692,6 @@
                 </div>`;
             } else if (epCode === 'Vol.01' || epTitle.includes('小紅帽')) {
                 badgeHTML = `<span class="absolute top-0 right-0 bg-orange-500/20 text-orange-400 text-[9px] font-bold px-2 py-1 rounded-bl-xl border-b border-l border-orange-500/30">核心展演</span>`;
-                // 聽覺到物質典藏與營火的相變
                 bridgeHTML = `
                 <div class="pt-3 mt-3 border-t border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 bg-orange-900/10 -mx-4 -mb-4 px-4 py-3 sm:-mx-5 sm:-mb-5 sm:px-5">
                     <span class="text-[10px] text-slate-400">靈魂被這段頻率觸動？</span>
@@ -667,27 +702,21 @@
                 </div>`;
             }
 
-            // 尋路者防禦矩陣：【絕對白名單蓋頭鎮壓】
             let embedHTML = '';
 
-            // 僅在 URL 為有效字串時啟動解析
             if (typeof epMediaUrl === 'string' && epMediaUrl.trim() !== '' && epMediaUrl !== 'undefined') {
                 const urlStr = epMediaUrl.trim().toLowerCase();
                 
-                // 實體化路徑 A：YouTube 頻率
                 if (urlStr.includes('youtube.com') || urlStr.includes('youtu.be')) {
-                    // 精準提取 11 碼 ID
                     const ytRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
                     const match = epMediaUrl.match(ytRegex);
                     if (match && match[1]) {
                         embedHTML = `<div class="aspect-video w-full rounded-xl overflow-hidden border border-white/10 mt-2 relative z-10"><iframe src="https://www.youtube.com/embed/${match[1]}" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>`;
                     }
                 } 
-                // 實體化路徑 B：SoundOn 頻率
                 else if (urlStr.includes('soundon.fm')) {
                     embedHTML = `<div class="w-full rounded-xl overflow-hidden border border-white/10 mt-2 relative z-10"><iframe src="${escapeHTML(epMediaUrl)}" class="w-full h-[500px] sm:h-[520px]" frameborder="0" scrolling="no" allow="autoplay"></iframe></div>`;
                 }
-                // 任何非白名單的 URL (包含首頁、GAS 網址等)，一律靜默拋棄，不生成 iframe
             }
             
             item.innerHTML = `${badgeHTML}<div class="flex justify-between items-center pr-12"><span class="text-xs font-bold ${epCode === 'Vol.00' ? 'text-emerald-400' : 'text-orange-400'} font-mono">${escapeHTML(epCode)}</span><span class="text-[10px] text-slate-500 font-mono">${escapeHTML(epDate)}</span></div><h4 class="text-sm md:text-base font-bold text-white serif mt-1">${escapeHTML(epTitle)}</h4><p class="text-[11px] md:text-xs text-slate-400 leading-relaxed font-light mt-1">${escapeHTML(epSummary)}</p>${embedHTML}${bridgeHTML}`;
